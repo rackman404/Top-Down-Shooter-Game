@@ -9,9 +9,6 @@ public class MobEntityController : CharacterEntity
     [SerializeField]
     private float speed; //m/s
 
-
-    
-
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +18,23 @@ public class MobEntityController : CharacterEntity
     // Update is called once per frame
     void Update()
     {
-        Attack();
+        if (PlayerController.Instance.isDead == false){
+            Attack();
+            //movement
+            movementController.MoveTowards(PlayerController.Instance.transform.position, speed);
+        }
 
-        //movement
-        movementController.MoveTowards(PlayerController.Instance.transform.position, speed);
     }
+
+    public override void TakeDamage(int dmg)
+    {
+        health -= dmg;
+
+        if (health <= 0){
+            Destroy(gameObject);
+        }
+    }
+
 
     private void Attack(){
         if (canAttack == true){

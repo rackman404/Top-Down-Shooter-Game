@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
     private GameObject projContainerObj;
     private GameObject mobContainerObj;
 
-       
+    public bool gameState = true;
 
     // Start is called before the first frame update
     void Start()
@@ -54,16 +54,17 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (mobEntityCount < maxMobEntityCount){
-            if (Random.Range(1, 100) < spawnChance){
-               Vector2 spawnPoint = Random.insideUnitCircle.normalized * Random.Range(radiusFromPlayerToSpawn-radiusFromPlayerToSpawnRange, radiusFromPlayerToSpawn + radiusFromPlayerToSpawnRange);
-
-                Instantiate(mobSpawnList[0], spawnPoint + new Vector2(PlayerController.Instance.transform.position.x, PlayerController.Instance.transform.position.y), Quaternion.Euler(0f,0f,0f), mobContainerObj.transform);
-
-            } 
-
+        if (PlayerController.Instance.isDead == false){
+            if (mobEntityCount < maxMobEntityCount){
+                if (Random.Range(1, 100) < spawnChance){
+                Vector2 spawnPoint = Random.insideUnitCircle.normalized * Random.Range(radiusFromPlayerToSpawn-radiusFromPlayerToSpawnRange, radiusFromPlayerToSpawn + radiusFromPlayerToSpawnRange);
+                    Instantiate(mobSpawnList[0], spawnPoint + new Vector2(PlayerController.Instance.transform.position.x, PlayerController.Instance.transform.position.y), Quaternion.Euler(0f,0f,0f), mobContainerObj.transform);
+                } 
+            }
         }
-
+        else{
+            gameState = false;
+        }
     }
 
     /// <summary>

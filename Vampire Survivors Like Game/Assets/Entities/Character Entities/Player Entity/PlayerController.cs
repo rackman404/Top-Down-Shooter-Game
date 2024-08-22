@@ -26,6 +26,8 @@ public class PlayerController : CharacterEntity
     public float speed;
     private Vector2 playerPos = Vector2.zero; 
 
+    public bool isDead {get; private set;} = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,26 +40,30 @@ public class PlayerController : CharacterEntity
     {   
         playerPos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
 
-        if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")){
-            Vector3 movementVector = Vector2.zero;
+        if (isDead == false){
+            if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")){
+                Vector3 movementVector = Vector2.zero;
 
-            if (Input.GetKey("w")){
-                movementVector += new Vector3 (0, speed * Time.deltaTime, 0);
-            }
-            if (Input.GetKey("a")){
-                movementVector += new Vector3 (-speed * Time.deltaTime, 0, 0);
-            }
-            if (Input.GetKey("s")){
-                movementVector += new Vector3 (0, -speed * Time.deltaTime, 0);
-            }
-            if (Input.GetKey("d")){
-                movementVector += new Vector3 (speed * Time.deltaTime, 0, 0);
+                if (Input.GetKey("w")){
+                    movementVector += new Vector3 (0, speed * Time.deltaTime, 0);
+                }
+                if (Input.GetKey("a")){
+                    movementVector += new Vector3 (-speed * Time.deltaTime, 0, 0);
+                }
+                if (Input.GetKey("s")){
+                    movementVector += new Vector3 (0, -speed * Time.deltaTime, 0);
+                }
+                if (Input.GetKey("d")){
+                    movementVector += new Vector3 (speed * Time.deltaTime, 0, 0);
+                }
+
+                movementController.MoveTo(movementVector);
             }
 
-            movementController.MoveTo(movementVector);
+            Attack();
         }
-
-        Attack();
+    
+       
         
     }
 
@@ -65,6 +71,18 @@ public class PlayerController : CharacterEntity
         canAttack = false;
         yield return new WaitForSeconds(weaponObjs[0].GetComponent<EntityProjectile>().fireRate); //fire rate
         canAttack = true;
+    }
+
+    public override void TakeDamage(int dmg)
+    {
+        health -= dmg;
+
+        if (health <= 0 && isDead == false){
+            health = 0;
+            isDead = true;
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            Destroy(spriteObj.gameObject);
+        }
     }
 
     void Attack(){

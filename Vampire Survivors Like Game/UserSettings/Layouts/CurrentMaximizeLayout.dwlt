@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 95785
+  controlID: 6276
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 95786
+  controlID: 6277
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 95735
+  controlID: 6231
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 95725
+  controlID: 6221
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -264,7 +264,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 9a25fbfffe25fbff5427fbffb8ebfbff145efcff4660fcff4c5dfdff8a62fdffbe75fdff1a8ffdff8e90fdffcebafdfffefbfeff54fcfeff0282ffff7c9cffff1afbffff169f0000
+      m_ExpandedIDs: e6f5ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -658,9 +658,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 19.24185, y: -11.886925, z: -0.91255003}
+    m_Target: {x: -151.49109, y: -29.250885, z: 88.5448}
     speed: 2
-    m_Value: {x: 19.24185, y: -11.886925, z: -0.91255003}
+    m_Value: {x: -151.49109, y: -29.250885, z: 88.5448}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -706,13 +706,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.055724684, y: -0.045817856, z: 0.0025367916, w: -0.99742246}
+    m_Target: {x: -0.2092529, y: -0.09459668, z: 0.02032259, w: -0.9731021}
     speed: 2
-    m_Value: {x: -0.055722944, y: -0.045816425, z: 0.0025367124, w: -0.9973913}
+    m_Value: {x: -0.20924497, y: -0.09459309, z: 0.020321818, w: -0.9730652}
   m_Size:
-    m_Target: 89.265396
+    m_Target: 179.7973
     speed: 2
-    m_Value: 89.265396
+    m_Value: 179.7973
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -810,7 +810,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Entities/Projectile
+    - Assets/Common
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -818,17 +818,17 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs/Entities/Projectile
+  - Assets/Common
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Programming\AIGameDev\game_component\Vampire Survivors Like
     Game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 43}
-    m_SelectedIDs: c0700000
-    m_LastClickedID: 28864
-    m_ExpandedIDs: 000000004e590000385f00003c5f000000ca9a3b
+    scrollPos: {x: 0, y: 15}
+    m_SelectedIDs: 5e590000
+    m_LastClickedID: 22878
+    m_ExpandedIDs: 000000005459000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -856,7 +856,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000004e59000000ca9a3b
+    m_ExpandedIDs: 000000005459000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

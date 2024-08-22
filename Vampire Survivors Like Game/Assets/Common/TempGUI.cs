@@ -17,14 +17,19 @@ public class TempGUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        
         entityRects = new List<Rect>();
         entityHp = new List<string>();
 
-        CharacterEntity[] entities = GameObject.FindObjectsOfType<CharacterEntity>();
-        for (int i = 0; i < entities.Length; i ++){
-            GUIRectWithObject(entities[i].gameObject);
-            entityHp.Add(entities[i].GetComponent<CharacterEntity>().GetHealth().ToString());
+        if (GameController.Instance.gameState == true){
+            CharacterEntity[] entities = GameObject.FindObjectsOfType<CharacterEntity>();
+            for (int i = 0; i < entities.Length; i ++){
+                GUIRectWithObject(entities[i].gameObject);
+                entityHp.Add(entities[i].GetComponent<CharacterEntity>().GetHealth().ToString());
+            }
         }
+        
     }
 
      void OnGUI(){
@@ -34,9 +39,14 @@ public class TempGUI : MonoBehaviour
         style.border = new RectOffset(borderSize, borderSize, borderSize, borderSize);
         style.normal.background = Resources.Load<Texture2D>("GUI/BoundingBox");
 
-        for (int i = 0; i < entityRects.Count; i++){
-            //GUI.Box(unitHighlights[i], GUIContent.none, style);
-            GUI.Label(new Rect(entityRects[i].xMin, entityRects[i].yMax, entityRects[i].xMin + 20,entityRects[i].yMax - 20), "HP:" + entityHp[i]);
+        if (GameController.Instance.gameState == true){
+            for (int i = 0; i < entityRects.Count; i++){
+                //GUI.Box(unitHighlights[i], GUIContent.none, style);
+                GUI.Label(new Rect(entityRects[i].xMin, entityRects[i].yMax, entityRects[i].xMin + 20,entityRects[i].yMax - 20), "HP:" + entityHp[i]);
+            }
+        }
+        else{
+            GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 50, Screen.width / 2 + 50, Screen.height + 50), "Gameover");
         }
         
     }

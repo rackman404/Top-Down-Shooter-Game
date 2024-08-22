@@ -7,7 +7,7 @@ public abstract class CharacterEntity : Entity
 {
     [Header("character entiy params")]
     [SerializeField]
-    private int health;
+    protected int health;
     
     public GameObject[] weaponObjs;
 
@@ -22,13 +22,7 @@ public abstract class CharacterEntity : Entity
         SpriteInit();
     }
 
-    public void TakeDamage(int dmg){
-        health -= dmg;
-
-        if (health <= 0){
-            Destroy(gameObject);
-        }
-    }
+    public abstract void TakeDamage(int dmg);
 
     public int GetHealth(){
         return health;
