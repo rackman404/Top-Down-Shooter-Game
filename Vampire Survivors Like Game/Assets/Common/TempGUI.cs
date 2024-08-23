@@ -17,8 +17,6 @@ public class TempGUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        
         entityRects = new List<Rect>();
         entityHp = new List<string>();
 
@@ -46,7 +44,7 @@ public class TempGUI : MonoBehaviour
             }
         }
         else{
-            GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 50, Screen.width / 2 + 50, Screen.height + 50), "Gameover");
+            GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 50, Screen.width / 2 + 50, Screen.height + 50), "Gameover\nPress Space to Restart");
         }
         
     }

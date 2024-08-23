@@ -18,10 +18,10 @@ public class MobEntityController : CharacterEntity
     // Update is called once per frame
     void Update()
     {
-        if (PlayerController.Instance.isDead == false){
+        if (GameController.Instance.playerInstance.isDead == false){
             Attack();
             //movement
-            movementController.MoveTowards(PlayerController.Instance.transform.position, speed);
+            movementController.MoveTowards(GameController.Instance.playerInstance.transform.position, speed);
         }
 
     }
@@ -40,7 +40,7 @@ public class MobEntityController : CharacterEntity
         if (canAttack == true){
             StartCoroutine(MobAttackCycle());
 
-            Instantiate(weaponObjs[0], transform.position, transform.rotation).GetComponent<EntityProjectile>().SetParameters(PlayerController.Instance.transform.position - transform.position, gameObject.tag);
+            Instantiate(weaponObjs[0], transform.position, transform.rotation).GetComponent<EntityProjectile>().SetParameters(GameController.Instance.playerInstance.transform.position - transform.position, gameObject.tag);
         }
     }
 

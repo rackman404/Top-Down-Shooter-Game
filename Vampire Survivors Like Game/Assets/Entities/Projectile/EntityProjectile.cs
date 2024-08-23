@@ -34,7 +34,7 @@ public class EntityProjectile : Entity
     }
 
     protected override void Init(){
-        GameController.Instance.addProjectile(gameObject);
+        GameController.Instance.AddProjectile(gameObject);
         range = speed * lifetime;
         spriteObj = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
         SpriteInit();
