@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Timeline;
 
-public class MobEntityController : CharacterEntity
+public class MobEntity : CharacterEntity
 {
 
     // Start is called before the first frame update
@@ -22,27 +22,26 @@ public class MobEntityController : CharacterEntity
         }
     }
 
+    /// <summary>
+    /// Subtract damage taken to entity's health.
+    /// </summary>
+    /// <param name="dmg"></param>
     public override void TakeDamage(int dmg)
     {
         health -= dmg;
-
         if (health <= 0){
             Destroy(gameObject);
         }
     }
 
-
+    /// <summary>
+    /// Will invoke attached WeaponControllers and their firing logic methods as needed.
+    /// </summary>
     private void Attack(){
-        if (canAttack == true){
-            StartCoroutine(MobAttackCycle());
-            Instantiate(weaponObjs[0], transform.position, transform.rotation).GetComponent<EntityProjectile>().SetParameters(GameController.Instance.playerInstance.transform.position - transform.position, gameObject.tag);
+        for (int i = 0; i < weaponControllers.Length; i++){
+            weaponControllers[i].Fire(GameController.Instance.playerInstance.transform.position);
         }
     }
 
-    IEnumerator MobAttackCycle(){
-        canAttack = false;
-        yield return new WaitForSeconds(weaponObjs[0].GetComponent<EntityProjectile>().fireRate); //fire rate
-        canAttack = true;
-    }
 
 }

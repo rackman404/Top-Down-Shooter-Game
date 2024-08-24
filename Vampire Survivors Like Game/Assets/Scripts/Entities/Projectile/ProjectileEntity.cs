@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-public class EntityProjectile : Entity
+public abstract class ProjectileEntity : Entity
 {
     [Header("projectile entity params")]
     public float speed;
@@ -18,26 +18,27 @@ public class EntityProjectile : Entity
 
     public int projectilesFiredPerAttack;
 
+    [SerializeField]
     public float range {get; private set; }
 
-    private Vector2 directionVector = Vector2.zero;
+    protected Vector2 directionVector = Vector2.zero;
 
-    private string originObjTag;
+    protected string originObjTag;
 
-    void Start(){
-        Init();
-    }
 
     IEnumerator lifetimeCounter(){
         yield return new WaitForSeconds(lifetime);
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Should only be called by itself.
+    /// </summary>
     protected override void Init(){
-        GameController.Instance.AddProjectile(gameObject);
-        range = speed * lifetime;
+        GameController.Instance.AddProjectile(gameObject); 
         spriteObj = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
         SpriteInit();
+        range = speed * lifetime;
 
         StartCoroutine(lifetimeCounter());
     }
@@ -45,6 +46,7 @@ public class EntityProjectile : Entity
     public void SetParameters(Vector2 setDirectionVec, string originTag){
         directionVector = setDirectionVec.normalized;
         originObjTag = originTag;
+        
 
         if (originObjTag == "Player"){
             Color redShifted = new Color(255,0,0);
@@ -52,9 +54,7 @@ public class EntityProjectile : Entity
         }
     }
 
-    void Update(){
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, transform.position.y) + directionVector, speed * Time.deltaTime);
-    }
+
     
     void OnTriggerEnter2D(Collider2D collision){
         if ((collision.gameObject.CompareTag("mob") || collision.gameObject.CompareTag("Player")) && !collision.gameObject.CompareTag(originObjTag)){

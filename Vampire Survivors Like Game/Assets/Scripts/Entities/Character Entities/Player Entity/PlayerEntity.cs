@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public partial class PlayerController : CharacterEntity
+public partial class PlayerEntity : CharacterEntity
 {
 
     //public params
@@ -45,18 +45,9 @@ public partial class PlayerController : CharacterEntity
 
                 movementController.MoveTo(movementVector);
             }
-
             Attack();
         }
-    
-       
         
-    }
-
-    IEnumerator PlayerAttackCycle(){
-        canAttack = false;
-        yield return new WaitForSeconds(weaponObjs[0].GetComponent<EntityProjectile>().fireRate); //fire rate
-        canAttack = true;
     }
 
     public override void TakeDamage(int dmg)
@@ -72,29 +63,22 @@ public partial class PlayerController : CharacterEntity
     }
 
     void Attack(){
-        if (canAttack == true){
-            StartCoroutine(PlayerAttackCycle());
+        GameObject[] mobs = GameObject.FindGameObjectsWithTag("mob");
 
-            GameObject[] mobs = GameObject.FindGameObjectsWithTag("mob");
-
-           
-            if (mobs.Length != 0){
-                GameObject leastDistObj = mobs[0];
-                float leastDist = Int32.MaxValue;
-                for (int i = 0; i < mobs.Length; i++){
-                    float dist =  Vector3.Distance(mobs[i].transform.position, transform.position);
-                    if (dist < leastDist){
-                        leastDist = dist;
-                        leastDistObj = mobs[i];
-                    }
-                }
-
-                for (int i = 0; i < weaponObjs.Length; i++){
-                    Instantiate(weaponObjs[i], transform.position, transform.rotation).GetComponent<EntityProjectile>().SetParameters(leastDistObj.transform.position - transform.position, gameObject.tag);
+        if (mobs.Length != 0){
+            GameObject leastDistObj = mobs[0];
+            float leastDist = Int32.MaxValue;
+            for (int i = 0; i < mobs.Length; i++){
+                float dist =  Vector3.Distance(mobs[i].transform.position, transform.position);
+                if (dist < leastDist){
+                    leastDist = dist;
+                    leastDistObj = mobs[i];
                 }
             }
 
-            
+            for (int i = 0; i < weaponControllers.Length; i++){
+                weaponControllers[i].Fire(leastDistObj.transform.position);
+            }
         }
     }
 

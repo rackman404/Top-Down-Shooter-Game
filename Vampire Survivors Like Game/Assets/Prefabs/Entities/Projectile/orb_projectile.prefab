@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6639240651010256900}
-  - component: {fileID: 227541428491231398}
+  - component: {fileID: -5432183218907629172}
   m_Layer: 0
   m_Name: orb_projectile
   m_TagString: projectile
@@ -112,12 +112,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8728709342074505487}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &227541428491231398
+--- !u!114 &-5432183218907629172
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,12 +126,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5144709077888246264}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 542514ebd832fb0468eedade9f4dfc8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 966e8f04fe433454dbd2a503ae92010f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   internalName: Energy Orb Attack
-  speed: 10
+  speed: 12.5
   damage: 5
-  lifetime: 10
+  lifetime: 5
   fireRate: 2
   projectilesFiredPerAttack: 1

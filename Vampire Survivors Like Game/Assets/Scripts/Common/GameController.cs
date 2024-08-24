@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
     private GameObject projContainerObj;
     private GameObject mobContainerObj;
 
-    public PlayerController playerInstance {get; private set;}
+    public PlayerEntity playerInstance {get; private set;}
 
     public bool gameState = true;
 
@@ -58,7 +58,7 @@ public class GameController : MonoBehaviour
         mobContainerObj = new GameObject("mob_container");
         mobContainerObj.transform.parent = transform;
 
-        playerInstance = GameObject.FindObjectOfType<PlayerController>();
+        playerInstance = GameObject.FindObjectOfType<PlayerEntity>();
 
     }
 
@@ -110,7 +110,7 @@ public class GameController : MonoBehaviour
 
         GameObject tempObj = Instantiate(playerPrefab, Vector3.zero, Quaternion.Euler(0,0,0));
 
-        playerInstance = tempObj.GetComponent<PlayerController>();
+        playerInstance = tempObj.GetComponent<PlayerEntity>();
 
         gameState = true;
     }

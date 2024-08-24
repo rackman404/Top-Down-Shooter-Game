@@ -16,6 +16,9 @@ public abstract class Entity : MonoBehaviour
 
     protected abstract void Init(); //should be overridden and used as a constructor within extending entity classes
 
+    /// <summary>
+    /// Should only be called by CharacterEntity and ProjectileEntity extended classes.
+    /// </summary>
     protected void SpriteInit(){
         spriteObj = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
         PolygonCollider2D temp = spriteObj.transform.AddComponent<PolygonCollider2D>();
