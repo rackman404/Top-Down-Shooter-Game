@@ -174,6 +174,8 @@ MonoBehaviour:
   mobSpawnList:
   - {fileID: 6620483800402619345, guid: cd089a5ad2a87e24ba34eb685d9951a6, type: 3}
   maxMobEntityCount: 10
+  gameState: 1
+  playerPrefab: {fileID: 8890439497112883303, guid: 943121f114f6a5646bb91358a05928cd, type: 3}
 --- !u!114 &23689771
 MonoBehaviour:
   m_ObjectHideFlags: 0

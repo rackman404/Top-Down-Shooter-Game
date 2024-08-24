@@ -8,9 +8,17 @@ public abstract class CharacterEntity : Entity
     [Header("character entiy params")]
     [SerializeField]
     protected int health;
+    [SerializeField]
+    protected float speed;
     
+    /// <summary>
+    /// Character entity attached projectile prefabs. To be used to instantiate new projectiles.
+    /// </summary>
     public GameObject[] weaponObjs;
 
+    /// <summary>
+    /// Character attached movement controller script. Auto initialised in the Init() function;
+    /// </summary>
     protected CharacterMovementController movementController;
 
     protected bool canAttack = true;

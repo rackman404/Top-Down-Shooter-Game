@@ -64,14 +64,15 @@
     <Analyzer Include="D:\Utilities\Games\Unity\2022.3.8f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Entities\Character Entities\Mob Entity\MobEntityController.cs" />
-    <Compile Include="Assets\Common\GameController.cs" />
-    <Compile Include="Assets\Entities\Character Entities\Player Entity\PlayerController.cs" />
-    <Compile Include="Assets\Entities\Entity.cs" />
-    <Compile Include="Assets\Entities\Character Entities\CharacterEntity.cs" />
-    <Compile Include="Assets\Entities\Character Entities\CharacterMovementController.cs" />
-    <Compile Include="Assets\Common\TempGUI.cs" />
-    <Compile Include="Assets\Entities\Projectile\EntityProjectile.cs" />
+    <Compile Include="Assets\Scripts\Entities\Projectile\EntityProjectile.cs" />
+    <Compile Include="Assets\Scripts\Entities\Character Entities\Mob Entity\MobEntityController.cs" />
+    <Compile Include="Assets\Scripts\Entities\Character Entities\CharacterEntity.cs" />
+    <Compile Include="Assets\Scripts\Entities\Entity.cs" />
+    <Compile Include="Assets\Scripts\Entities\Character Entities\CharacterMovementController.cs" />
+    <Compile Include="Assets\Scripts\Entities\Character Entities\Player Entity\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Common\GameController.cs" />
+    <Compile Include="Assets\Scripts\Weapon\WeaoonController.cs" />
+    <Compile Include="Assets\Scripts\Common\TempGUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

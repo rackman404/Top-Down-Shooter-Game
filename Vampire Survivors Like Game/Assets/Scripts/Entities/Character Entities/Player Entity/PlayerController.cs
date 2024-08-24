@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : CharacterEntity
+
+
+public partial class PlayerController : CharacterEntity
 {
 
-
     //public params
-    public float speed;
-    private Vector2 playerPos = Vector2.zero; 
-
+    /// <summary>
+    /// whether or not player is dead. logic dependent on if player is dead or not should be referenced from this variable through the current player instance.
+    /// </summary>
     public bool isDead {get; private set;} = false;
 
     // Start is called before the first frame update
@@ -23,7 +24,7 @@ public class PlayerController : CharacterEntity
     // Update is called once per frame
     void FixedUpdate()
     {   
-        playerPos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+
 
         if (isDead == false){
             if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")){
