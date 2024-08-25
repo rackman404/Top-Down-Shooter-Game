@@ -12,6 +12,8 @@ public class MobEntity : CharacterEntity
         Init();
     }
 
+
+    
     // Update is called once per frame
     void Update()
     {
@@ -39,7 +41,7 @@ public class MobEntity : CharacterEntity
     /// </summary>
     private void Attack(){
         for (int i = 0; i < weaponControllers.Length; i++){
-            weaponControllers[i].Fire(GameController.Instance.playerInstance.transform.position);
+            weaponControllers[i].Fire(GameController.Instance.playerInstance.transform.position, GameController.Instance.playerInstance.gameObject);
         }
     }
 

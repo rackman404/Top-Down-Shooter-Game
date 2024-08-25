@@ -21,9 +21,14 @@ public abstract class ProjectileEntity : Entity
     [SerializeField]
     public float range {get; private set; }
 
-    protected Vector2 directionVector = Vector2.zero;
+    public Vector2 directionVector {get; protected set;}= Vector2.zero;
 
-    protected string originObjTag;
+    public string originObjTag {get; protected set;}
+
+    /// <summary>
+    /// reference to intended target entity. If used, it should be checked to see if it is null or destroyed first.
+    /// </summary>
+    public GameObject originalTargetObj {get; protected set;}
 
 
     IEnumerator lifetimeCounter(){
@@ -43,10 +48,16 @@ public abstract class ProjectileEntity : Entity
         StartCoroutine(lifetimeCounter());
     }
 
-    public void SetParameters(Vector2 setDirectionVec, string originTag){
+    /// <summary>
+    /// Called when Projectile is 
+    /// </summary>
+    /// <param name="setDirectionVec"></param>
+    /// <param name="originTag"></param>
+    public void SetParameters(Vector2 setDirectionVec, string originTag, GameObject oTargetObj, string prefabNameStr){
         directionVector = setDirectionVec.normalized;
         originObjTag = originTag;
-        
+        originalTargetObj = oTargetObj;
+        prefabName = prefabNameStr;        
 
         if (originObjTag == "Player"){
             Color redShifted = new Color(255,0,0);
@@ -55,7 +66,11 @@ public abstract class ProjectileEntity : Entity
     }
 
 
-    
+    /// <summary>
+    /// Base collision damage logic.
+    /// Should be overridden as need by extending projectile classes as needed for custom damage logic.
+    /// </summary>
+    /// <param name="collision"></param>
     void OnTriggerEnter2D(Collider2D collision){
         if ((collision.gameObject.CompareTag("mob") || collision.gameObject.CompareTag("Player")) && !collision.gameObject.CompareTag(originObjTag)){
             collision.gameObject.GetComponent<CharacterEntity>().TakeDamage(damage);

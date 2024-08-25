@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public abstract class CharacterEntity : Entity
@@ -25,6 +26,7 @@ public abstract class CharacterEntity : Entity
 
     protected override void Init()
     {
+
         movementController = gameObject.transform.AddComponent<CharacterMovementController>();
 
         weaponControllers = new WeaponController[weaponObjs.Length];

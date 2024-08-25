@@ -24,8 +24,6 @@ public partial class PlayerEntity : CharacterEntity
     // Update is called once per frame
     void FixedUpdate()
     {   
-
-
         if (isDead == false){
             if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")){
                 Vector3 movementVector = Vector2.zero;
@@ -47,7 +45,6 @@ public partial class PlayerEntity : CharacterEntity
             }
             Attack();
         }
-        
     }
 
     public override void TakeDamage(int dmg)
@@ -77,7 +74,7 @@ public partial class PlayerEntity : CharacterEntity
             }
 
             for (int i = 0; i < weaponControllers.Length; i++){
-                weaponControllers[i].Fire(leastDistObj.transform.position);
+                weaponControllers[i].Fire(leastDistObj.transform.position, leastDistObj);
             }
         }
     }

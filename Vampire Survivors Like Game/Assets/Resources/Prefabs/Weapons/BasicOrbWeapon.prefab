@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a545a8f936ad7d429828abaf189f6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefabs: {fileID: 5144709077888246264, guid: cb02bb166394ce2478e60c3c8d5dc804, type: 3}
+  projectilePrefab: {fileID: 5144709077888246264, guid: cb02bb166394ce2478e60c3c8d5dc804, type: 3}
   weaponCooldown: 2.5

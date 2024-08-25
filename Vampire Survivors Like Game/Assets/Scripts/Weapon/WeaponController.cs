@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class WeaponController : MonoBehaviour
 {
 
     //public params
-    public GameObject projectilePrefabs;
+    public GameObject projectilePrefab;
     public float weaponCooldown;
 
     private Entity parentEntity;
@@ -25,11 +26,11 @@ public class WeaponController : MonoBehaviour
     /// Fire projectiles at target vector position given. Will not fire if on cooldown or projectiles are out of range.
     /// </summary>
     /// <param name="targetPos"></param>
-    public void Fire(Vector3 targetPos){
+    public void Fire(Vector3 targetPos, GameObject targetObj){
          if (canAttack == true){
-            if (projectilePrefabs.GetComponent<ProjectileEntity>().speed * projectilePrefabs.GetComponent<ProjectileEntity>().lifetime >= Vector3.Distance(targetPos, parentEntity.transform.position)){
+            if (projectilePrefab.GetComponent<ProjectileEntity>().speed * projectilePrefab.GetComponent<ProjectileEntity>().lifetime >= Vector3.Distance(targetPos, parentEntity.transform.position)){
                 StartCoroutine(AttackCycle());
-                Instantiate(projectilePrefabs, transform.position, transform.rotation).GetComponent<ProjectileEntity>().SetParameters(targetPos - parentEntity.transform.position, parentEntity.tag);
+                Instantiate(projectilePrefab, transform.position, transform.rotation).GetComponent<ProjectileEntity>().SetParameters(targetPos - parentEntity.transform.position, parentEntity.tag, targetObj, projectilePrefab.name);
             }
         }
     }

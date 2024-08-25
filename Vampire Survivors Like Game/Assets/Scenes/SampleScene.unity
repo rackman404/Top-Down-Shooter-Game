@@ -168,8 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32ea63e83f2803409be5e96863b7ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radiusFromPlayerToSpawn: 100
-  radiusFromPlayerToSpawnRange: 1
+  radiusFromPlayerToSpawn: 150
+  radiusFromPlayerToSpawnRange: 20
   spawnChance: 5
   mobSpawnList:
   - {fileID: 6620483800402619345, guid: cd089a5ad2a87e24ba34eb685d9951a6, type: 3}
