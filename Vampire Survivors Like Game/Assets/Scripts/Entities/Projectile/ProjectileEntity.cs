@@ -40,7 +40,7 @@ public abstract class ProjectileEntity : Entity
     /// Should only be called by itself.
     /// </summary>
     protected override void Init(){
-        GameController.Instance.AddProjectile(gameObject); 
+        GameController.Instance.levelInstance.AddProjectile(gameObject); 
         spriteObj = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
         SpriteInit();
         range = speed * lifetime;

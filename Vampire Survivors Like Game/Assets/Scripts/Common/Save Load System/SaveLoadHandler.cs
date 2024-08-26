@@ -22,15 +22,11 @@ public class SaveLoadHandler :MonoBehaviour, ISaveLoadHandler
         if (File.Exists(saveFilePath)){
             //FileStream saveFileStream = new FileStream(saveFilePath, FileMode.Open);
             JsonSerializer serializer = new JsonSerializer();
-
             StreamReader sr = new StreamReader(saveFilePath);
             JsonReader reader = new JsonTextReader(sr);
-
-
             LevelData lvlData = (LevelData)serializer.Deserialize(reader, typeof(LevelData));
 
             sr.Close();
-
             return lvlData;
         }
 
@@ -45,8 +41,6 @@ public class SaveLoadHandler :MonoBehaviour, ISaveLoadHandler
         Debug.Log("saving, save location: " + saveFilePath);
         //FileStream saveFileStream = new FileStream(saveFilePath, FileMode.Create);
         //saveFileStream.Close();
-
-
         JsonSerializer serializer = new JsonSerializer();
 
         StreamWriter sw = new StreamWriter(saveFilePath);
@@ -72,7 +66,7 @@ public class SaveLoadHandler :MonoBehaviour, ISaveLoadHandler
         return default(T);
     }
 
-    public void SaveGamePrefs(GameController gameController){
+    public void SaveGamePrefs(){
         //total time played overall
         float temp = PlayerPrefs.GetFloat("TotalSecondsPlayed");
         PlayerPrefs.SetFloat("TotalSecondsPlayed", temp + Time.realtimeSinceStartup);

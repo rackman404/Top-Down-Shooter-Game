@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 80105
+  controlID: 92364
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 80106
+  controlID: 92365
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 80055
+  controlID: 92328
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 80045
+  controlID: 92319
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -264,7 +264,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: d0d5faff06ddfaffc679fbff7a80fbff66cffbff7ae6fcffcee6fcff26e8fcffb8b4fdff34b6fdff9c72feffa072feffe4f5ffffe6f5ffffa6580000ae730000
+      m_ExpandedIDs: 1835faff2235faff0839faff1239faff663cfaff4652faff8c55faff5a5cfaffdc8bfaff328cfaff8c8dfaffd0d5faff06ddfaffc679fbff7a80fbff66cffbff7ae6fcffcee6fcff26e8fcffb8b4fdff34b6fdff9c72feffa072feffe4f5ffffe6f5ffffa6580000ae73000028990000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -658,9 +658,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -15.262131, y: -120.383446, z: 81.780106}
+    m_Target: {x: 42.698807, y: -13.532112, z: 50.616226}
     speed: 2
-    m_Value: {x: -15.262131, y: -120.383446, z: 81.780106}
+    m_Value: {x: 42.698807, y: -13.532112, z: 50.616226}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -706,13 +706,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.2204818, y: -0.00966235, z: 0.0021717157, w: -0.97538507}
+    m_Target: {x: -0.11272832, y: -0.44301128, z: 0.05624183, w: -0.8876692}
     speed: 2
-    m_Value: {x: -0.22047229, y: -0.0096619325, z: 0.0021716221, w: -0.975343}
+    m_Value: {x: -0.112723455, y: -0.44299218, z: 0.056239404, w: -0.8876309}
   m_Size:
-    m_Target: 241.09245
+    m_Target: 126.54085
     speed: 2
-    m_Value: 241.09245
+    m_Value: 126.54085
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -747,7 +747,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ProjectBrowser
+  m_Name: ConsoleWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -756,15 +756,15 @@ MonoBehaviour:
     y: 717
     width: 1437
     height: 222
-  m_MinSize: {x: 230, y: 250}
-  m_MaxSize: {x: 10000, y: 10000}
-  m_ActualView: {fileID: 11}
+  m_MinSize: {x: 101, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
+  m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 11}
   - {fileID: 12}
   - {fileID: 13}
-  m_Selected: 0
-  m_LastSelected: 2
+  m_Selected: 2
+  m_LastSelected: 0
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -810,7 +810,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Prefabs/Entities/Projectile
+    - Assets/Resources/Prefabs/Entities
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -818,17 +818,17 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources/Prefabs/Entities/Projectile
+  - Assets/Resources/Prefabs/Entities
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Programming\AIGameDev\game_component\Vampire Survivors Like
     Game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 27}
-    m_SelectedIDs: 42610000
-    m_LastClickedID: 24898
-    m_ExpandedIDs: 000000005459000062590000645900003c61000000ca9a3b
+    scrollPos: {x: 0, y: 63}
+    m_SelectedIDs: 3c610000
+    m_LastClickedID: 24892
+    m_ExpandedIDs: 000000005459000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -981,7 +981,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 790
-    width: 1523
+    width: 1436
     height: 201
   m_SerializedDataModeController:
     m_DataMode: 0

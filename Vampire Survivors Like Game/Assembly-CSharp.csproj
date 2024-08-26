@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Entities\Character Entities\CharacterEntity.cs" />
     <Compile Include="Assets\Scripts\Entities\Entity.cs" />
     <Compile Include="Assets\Scripts\Common\LevelData.cs" />
+    <Compile Include="Assets\Scripts\Common\Level System\LevelController.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponController.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\CharacterMovementController.cs" />
     <Compile Include="Assets\Scripts\Common\GameController.cs" />

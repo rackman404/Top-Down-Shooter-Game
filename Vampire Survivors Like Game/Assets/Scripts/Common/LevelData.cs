@@ -5,7 +5,12 @@ using UnityEngine;
 
 [System.Serializable]
 public class LevelData
-{
+{  
+    /// <summary>
+    /// To be used for save file version control.
+    /// </summary>
+    public float saveVersion {get; private set;} = 1.0f;
+
     [JsonProperty("mobEntities")]
     public Dictionary<string, string>[] mobEntities {get; private set;}
     [JsonProperty("projectileEntities")]
@@ -13,14 +18,14 @@ public class LevelData
     [JsonProperty("playerEntity")]
     public Dictionary<string, string> playerEntity {get; private set;}
 
-    public void StoreAllEntityData(GameController gameController){
-        mobEntities = new Dictionary<string, string>[gameController.mobContainerObj.transform.childCount];
-        projectileEntities = new Dictionary<string, string>[gameController.projContainerObj.transform.childCount];
+    public void StoreAllEntityData(LevelController lvlController){
+        mobEntities = new Dictionary<string, string>[lvlController.mobContainerObj.transform.childCount];
+        projectileEntities = new Dictionary<string, string>[lvlController.projContainerObj.transform.childCount];
         playerEntity = new Dictionary<string, string>();
 
-        if (gameController.mobContainerObj.transform.childCount != 0){
-            for (int i = 0; i < gameController.mobContainerObj.transform.childCount; i++){
-                Transform mobTemp = gameController.mobContainerObj.transform.GetChild(i);
+        if (lvlController.mobContainerObj.transform.childCount != 0){
+            for (int i = 0; i < lvlController.mobContainerObj.transform.childCount; i++){
+                Transform mobTemp = lvlController.mobContainerObj.transform.GetChild(i);
                 MobEntity mobScript = mobTemp.GetComponent<MobEntity>();
 
                 Dictionary<string, string> currentEnt = new Dictionary<string, string>
@@ -35,9 +40,9 @@ public class LevelData
             }
         }
 
-        if (gameController.projContainerObj.transform.childCount != 0){
-            for (int i = 0; i < gameController.projContainerObj.transform.childCount; i++){
-                Transform projTemp = gameController.projContainerObj.transform.GetChild(i);
+        if (lvlController.projContainerObj.transform.childCount != 0){
+            for (int i = 0; i < lvlController.projContainerObj.transform.childCount; i++){
+                Transform projTemp = lvlController.projContainerObj.transform.GetChild(i);
                 ProjectileEntity projScript = projTemp.GetComponent<ProjectileEntity>();
 
                 Dictionary<string, string> currentProj = new Dictionary<string, string>
@@ -54,12 +59,12 @@ public class LevelData
             }
         }
 
-        if(gameController.playerInstance.isDead != true){
+        if(lvlController.playerInstance.isDead != true){
             playerEntity = new Dictionary<string, string>
             {
-                { "transform x", gameController.playerInstance.transform.position.x.ToString() },
-                { "transform y", gameController.playerInstance.transform.position.y.ToString() },
-                { "health", gameController.playerInstance.GetHealth().ToString() }
+                { "transform x", lvlController.playerInstance.transform.position.x.ToString() },
+                { "transform y", lvlController.playerInstance.transform.position.y.ToString() },
+                { "health", lvlController.playerInstance.GetHealth().ToString() }
             };
         }
         

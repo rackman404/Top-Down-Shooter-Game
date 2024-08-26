@@ -23,8 +23,7 @@ public interface ISaveLoadHandler
     /// <summary>
     /// Save all game pref data.
     /// </summary>
-    /// <param name="gameController"></param>
-    void SaveGamePrefs(GameController gameController);
+    void SaveGamePrefs();
 
     /// <summary>
     /// Load specific game preference value given the key. Type of returned value (e.g string, float, int) must be specified

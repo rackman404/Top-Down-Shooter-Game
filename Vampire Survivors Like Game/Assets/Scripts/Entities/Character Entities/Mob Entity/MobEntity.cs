@@ -13,14 +13,14 @@ public class MobEntity : CharacterEntity
     }
 
 
-    
+
     // Update is called once per frame
     void Update()
     {
-        if (GameController.Instance.playerInstance.isDead == false){
+        if (GameController.Instance.levelInstance.playerInstance.isDead == false){
             Attack();
             //movement
-            movementController.MoveTowards(GameController.Instance.playerInstance.transform.position, speed);
+            movementController.MoveTowards(GameController.Instance.levelInstance.playerInstance.transform.position, speed);
         }
     }
 
@@ -41,7 +41,7 @@ public class MobEntity : CharacterEntity
     /// </summary>
     private void Attack(){
         for (int i = 0; i < weaponControllers.Length; i++){
-            weaponControllers[i].Fire(GameController.Instance.playerInstance.transform.position, GameController.Instance.playerInstance.gameObject);
+            weaponControllers[i].Fire(GameController.Instance.levelInstance.playerInstance.transform.position, GameController.Instance.levelInstance.playerInstance.gameObject);
         }
     }
 
