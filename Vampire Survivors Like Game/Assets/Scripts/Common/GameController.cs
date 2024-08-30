@@ -5,6 +5,7 @@ using System.Numerics;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -51,11 +52,10 @@ public class GameController : MonoBehaviour
 
     public int maxMobEntityCount;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
+        //SceneManager.LoadScene("GUIScene", LoadSceneMode.Additive);
 
         levelInstance = new GameObject("level_instance").transform.AddComponent<LevelController>().InitializeLevelInstance(
         radiusFromPlayerToSpawn,
@@ -65,6 +65,10 @@ public class GameController : MonoBehaviour
         maxMobEntityCount);
 
         saveLoadController = gameObject.AddComponent<SaveLoadHandler>();
+    }
+
+    void OnApplicationQuit(){
+        SaveAllData();
     }
 
     // Update is called once per frame
@@ -91,7 +95,7 @@ public class GameController : MonoBehaviour
             } 
         }
 
-        //save functions
+        //save functions upon key press. TODO: move from key press to actual GUI interactions
         if (Input.GetKeyDown("p") && paused == true){
             levelInstance.SaveLevelData();
         }
@@ -102,10 +106,10 @@ public class GameController : MonoBehaviour
     }
 
     /// <summary>
-    /// Invoke for a full restart of the loaded game scene
+    /// Invoke for a full restart of the loaded game scene.
+    /// Will create destroy existing player and level instances before reinitializing new level and player instances.
     /// </summary>
     public void RestartGameState(){  
-        Destroy(levelInstance.playerInstance.gameObject);
         Destroy(levelInstance.gameObject);
 
         levelInstance = new GameObject("level_instance").transform.AddComponent<LevelController>().InitializeLevelInstance(
@@ -116,10 +120,6 @@ public class GameController : MonoBehaviour
         maxMobEntityCount);
 
         gameState = true;
-    }
-
-    void OnApplicationQuit(){
-        SaveAllData();
     }
 
     /// <summary>

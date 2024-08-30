@@ -64,7 +64,8 @@ public class LevelData
             {
                 { "transform x", lvlController.playerInstance.transform.position.x.ToString() },
                 { "transform y", lvlController.playerInstance.transform.position.y.ToString() },
-                { "health", lvlController.playerInstance.GetHealth().ToString() }
+                { "health", lvlController.playerInstance.GetHealth().ToString() },
+                { "score", lvlController.playerInstance.score.ToString()}
             };
         }
         

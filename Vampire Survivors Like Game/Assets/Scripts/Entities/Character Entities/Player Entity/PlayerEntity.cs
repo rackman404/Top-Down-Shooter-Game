@@ -14,6 +14,12 @@ public partial class PlayerEntity : CharacterEntity
     /// </summary>
     public bool isDead {get; private set;} = false;
 
+    /// <summary>
+    /// Player Instance's score.
+    /// </summary>
+    public int score {get; private set;} = 0;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +47,7 @@ public partial class PlayerEntity : CharacterEntity
                     movementVector += new Vector3 (speed * Time.deltaTime, 0, 0);
                 }
 
-                movementController.MoveTo(movementVector);
+                movementController.MoveTo(movementVector, rb);
             }
             Attack();
         }
@@ -77,6 +83,13 @@ public partial class PlayerEntity : CharacterEntity
                 weaponControllers[i].Fire(leastDistObj.transform.position, leastDistObj);
             }
         }
+    }
+
+    /// <summary>
+    /// Score to be added when projectile kills enemy. Should be invoked by a mob's death
+    /// </summary>
+    public void AddScore(int addS){
+        score += addS;
     }
 
 

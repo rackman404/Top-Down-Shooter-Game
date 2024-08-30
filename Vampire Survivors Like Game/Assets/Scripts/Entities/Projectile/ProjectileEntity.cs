@@ -40,9 +40,13 @@ public abstract class ProjectileEntity : Entity
     /// Should only be called by itself.
     /// </summary>
     protected override void Init(){
+        
+
         GameController.Instance.levelInstance.AddProjectile(gameObject); 
         spriteObj = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
         SpriteInit();
+        GetComponent<BoxCollider2D>().isTrigger = true;
+
         range = speed * lifetime;
 
         StartCoroutine(lifetimeCounter());
@@ -76,6 +80,11 @@ public abstract class ProjectileEntity : Entity
             collision.gameObject.GetComponent<CharacterEntity>().TakeDamage(damage);
             Destroy(gameObject); //destroy self
         }
+        /*
+        else if ({
+
+        }
+        */
     }
 
 }

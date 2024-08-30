@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   internalName: Energy Orb Attack
-  speed: 12.5
+  speed: 15
   damage: 5
   lifetime: 5
   fireRate: 2

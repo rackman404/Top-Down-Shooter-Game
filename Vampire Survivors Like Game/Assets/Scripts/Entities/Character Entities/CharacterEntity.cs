@@ -26,7 +26,6 @@ public abstract class CharacterEntity : Entity
 
     protected override void Init()
     {
-
         movementController = gameObject.transform.AddComponent<CharacterMovementController>();
 
         weaponControllers = new WeaponController[weaponObjs.Length];
@@ -34,7 +33,6 @@ public abstract class CharacterEntity : Entity
         for (int i = 0; i < weaponObjs.Length; i++){
             weaponControllers[i] = GameObject.Instantiate(weaponObjs[i], transform.position, Quaternion.Euler(0,0,0), transform).GetComponent<WeaponController>().Init(this);
         }
-        
         SpriteInit();
     }
 

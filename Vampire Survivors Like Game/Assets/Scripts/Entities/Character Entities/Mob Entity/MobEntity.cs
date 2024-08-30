@@ -20,7 +20,7 @@ public class MobEntity : CharacterEntity
         if (GameController.Instance.levelInstance.playerInstance.isDead == false){
             Attack();
             //movement
-            movementController.MoveTowards(GameController.Instance.levelInstance.playerInstance.transform.position, speed);
+            movementController.MoveTowards(GameController.Instance.levelInstance.playerInstance.transform.position, speed, rb);
         }
     }
 
@@ -32,6 +32,7 @@ public class MobEntity : CharacterEntity
     {
         health -= dmg;
         if (health <= 0){
+            GameController.Instance.levelInstance.playerInstance.AddScore(5);
             Destroy(gameObject);
         }
     }

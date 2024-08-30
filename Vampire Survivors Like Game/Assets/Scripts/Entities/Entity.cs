@@ -26,11 +26,12 @@ public abstract class Entity : MonoBehaviour
         PolygonCollider2D temp = spriteObj.transform.AddComponent<PolygonCollider2D>();
         entityCollider = transform.AddComponent<BoxCollider2D>();
         entityCollider.size = temp.bounds.size;
-        entityCollider.isTrigger = true;
+        entityCollider.isTrigger = false;
         Destroy(temp);
 
         rb = gameObject.transform.AddComponent<Rigidbody2D>();
         rb.gravityScale = 0;
+        rb.freezeRotation = true;
     }
 
     public string GetInternalName(){
