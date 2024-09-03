@@ -39,7 +39,11 @@ public class GameController : MonoBehaviour
 
     public bool paused {get; private set;} = false;
 
+    [Header("Game Params")]
     public GameObject playerPrefab;
+    public Scene GUIScenePrefab;
+
+
 
     public LevelController levelInstance {get; private set;}
 
@@ -52,12 +56,16 @@ public class GameController : MonoBehaviour
 
     public int maxMobEntityCount;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        //SceneManager.LoadScene("GUIScene", LoadSceneMode.Additive);
+        SceneManager.LoadScene("GUIScene", LoadSceneMode.Additive);
 
-        levelInstance = new GameObject("level_instance").transform.AddComponent<LevelController>().InitializeLevelInstance(
+
+
+
+        levelInstance = new GameObject("level_instance").transform.gameObject.AddComponent<LevelController>().InitializeLevelInstance(
         radiusFromPlayerToSpawn,
         radiusFromPlayerToSpawnRange,
         spawnChance,
@@ -112,7 +120,7 @@ public class GameController : MonoBehaviour
     public void RestartGameState(){  
         Destroy(levelInstance.gameObject);
 
-        levelInstance = new GameObject("level_instance").transform.AddComponent<LevelController>().InitializeLevelInstance(
+        levelInstance = new GameObject("level_instance").transform.gameObject.AddComponent<LevelController>().InitializeLevelInstance(
         radiusFromPlayerToSpawn,
         radiusFromPlayerToSpawnRange,
         spawnChance,

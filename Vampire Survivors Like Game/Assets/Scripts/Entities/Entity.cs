@@ -23,13 +23,13 @@ public abstract class Entity : MonoBehaviour
     /// </summary>
     protected void SpriteInit(){
         spriteObj = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
-        PolygonCollider2D temp = spriteObj.transform.AddComponent<PolygonCollider2D>();
-        entityCollider = transform.AddComponent<BoxCollider2D>();
+        PolygonCollider2D temp = spriteObj.transform.gameObject.AddComponent<PolygonCollider2D>();
+        entityCollider = transform.gameObject.AddComponent<BoxCollider2D>();
         entityCollider.size = temp.bounds.size;
         entityCollider.isTrigger = false;
         Destroy(temp);
 
-        rb = gameObject.transform.AddComponent<Rigidbody2D>();
+        rb = gameObject.transform.gameObject.AddComponent<Rigidbody2D>();
         rb.gravityScale = 0;
         rb.freezeRotation = true;
     }

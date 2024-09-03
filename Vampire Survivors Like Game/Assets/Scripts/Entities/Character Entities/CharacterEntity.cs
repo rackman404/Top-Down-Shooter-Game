@@ -26,7 +26,7 @@ public abstract class CharacterEntity : Entity
 
     protected override void Init()
     {
-        movementController = gameObject.transform.AddComponent<CharacterMovementController>();
+        movementController = gameObject.transform.gameObject.AddComponent<CharacterMovementController>();
 
         weaponControllers = new WeaponController[weaponObjs.Length];
         //weapon instantiate
