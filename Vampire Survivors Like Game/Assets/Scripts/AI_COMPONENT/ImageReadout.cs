@@ -122,9 +122,8 @@ public class ImageReadout : MonoBehaviour{
             jsonData.frameByteData.Add(temp);
         }
         
-
-
         RenderTexture.active = currentActiveRT;
+        Destroy(tex);
     }
 
     private void ToJSON(){

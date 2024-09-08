@@ -5,9 +5,11 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
+using System.Runtime.CompilerServices;
 
-public class SaveLoadHandler :MonoBehaviour, ISaveLoadHandler
+public class SaveLoadHandler : MonoBehaviour, ISaveLoadHandler
 {
+
     private string saveFilePath;
 
     void Awake(){

@@ -4,6 +4,9 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Abstract class for mob/player entities.
+/// </summary>
 public abstract class CharacterEntity : Entity
 {
 
@@ -26,7 +29,7 @@ public abstract class CharacterEntity : Entity
 
     protected override void Init()
     {
-        movementController = gameObject.transform.gameObject.AddComponent<CharacterMovementController>();
+        movementController = gameObject.AddComponent<CharacterMovementController>();
 
         weaponControllers = new WeaponController[weaponObjs.Length];
         //weapon instantiate

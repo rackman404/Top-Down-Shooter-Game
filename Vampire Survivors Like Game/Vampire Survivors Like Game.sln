@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitandIntegrationTesting", "UnitandIntegrationTesting.csproj", "{87CCAD9E-F369-E1C3-C770-1FD284FE3F5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit and Integration Testing", "Unit and Integration Testing.csproj", "{0555672D-0C5F-8F98-E556-8840B0C62203}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainAssenbly", "MainAssenbly.csproj", "{F7803F83-447A-EC7C-06A6-424AFC7E5F3C}"
 EndProject
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{87CCAD9E-F369-E1C3-C770-1FD284FE3F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87CCAD9E-F369-E1C3-C770-1FD284FE3F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87CCAD9E-F369-E1C3-C770-1FD284FE3F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87CCAD9E-F369-E1C3-C770-1FD284FE3F5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0555672D-0C5F-8F98-E556-8840B0C62203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0555672D-0C5F-8F98-E556-8840B0C62203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0555672D-0C5F-8F98-E556-8840B0C62203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0555672D-0C5F-8F98-E556-8840B0C62203}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7803F83-447A-EC7C-06A6-424AFC7E5F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7803F83-447A-EC7C-06A6-424AFC7E5F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7803F83-447A-EC7C-06A6-424AFC7E5F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU

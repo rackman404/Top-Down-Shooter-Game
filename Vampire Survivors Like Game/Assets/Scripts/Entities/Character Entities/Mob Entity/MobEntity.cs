@@ -7,12 +7,10 @@ public class MobEntity : CharacterEntity
 {
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Init();
     }
-
-
 
     // Update is called once per frame
     void Update()

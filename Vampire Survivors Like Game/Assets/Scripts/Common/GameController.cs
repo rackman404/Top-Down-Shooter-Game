@@ -20,21 +20,8 @@ public class GameController : MonoBehaviour
     /// </summary>
     private LevelData lvlData;
 
-    //singleton stuff
     public static GameController Instance {get; private set; }
 
-    private void Awake() { 
-        // If there is an instance, and it's not me, delete myself.
-    
-        if (Instance != null && Instance != this) 
-        { 
-            Destroy(this); 
-        } 
-        else 
-        { 
-            Instance = this; 
-        } 
-    }
     public bool gameState {get; private set;} = true;
 
     public bool paused {get; private set;} = false;
@@ -57,11 +44,23 @@ public class GameController : MonoBehaviour
     public int maxMobEntityCount;
 
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        SceneManager.LoadScene("GUIScene", LoadSceneMode.Additive);
-
+    
+        if (Instance != null && Instance != this) 
+        { 
+            Destroy(this); 
+        } 
+        else 
+        { 
+            Instance = this; 
+        } 
+    
+        /*
+        if (SceneManager.GetSceneByName("GUIScene").isLoaded == false){
+            SceneManager.LoadScene("GUIScene", LoadSceneMode.Additive);
+        }
+        */
 
 
 
@@ -118,7 +117,10 @@ public class GameController : MonoBehaviour
     /// Will create destroy existing player and level instances before reinitializing new level and player instances.
     /// </summary>
     public void RestartGameState(){  
-        Destroy(levelInstance.gameObject);
+        if (levelInstance != null){
+            Destroy(levelInstance.gameObject);
+        }
+        
 
         levelInstance = new GameObject("level_instance").transform.gameObject.AddComponent<LevelController>().InitializeLevelInstance(
         radiusFromPlayerToSpawn,

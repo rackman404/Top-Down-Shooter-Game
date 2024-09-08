@@ -1,20 +1,17 @@
 {
-    "name": "UnitandIntegrationTesting",
+    "name": "Unit and Integration Testing",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "MainAssenbly"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll",
-        ""
+        "nunit.framework.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

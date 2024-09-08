@@ -4,8 +4,9 @@ using System.Security.Principal;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.UIElements;
 
-
+[TestFixture]
 public class EntityTest
 {
 
@@ -13,27 +14,40 @@ public class EntityTest
 
     GameObject mobEntityInstance;
 
-    bool alreadyInited = false;
+    GameObject gameController;
+
+    bool oneTimeSetup = false;
 
     [SetUp]
     public void SetUp(){
-        GameObject mobEntityInstance = GameObject.Instantiate(exampleMob);
+        if (oneTimeSetup == false){
+            gameController = new GameObject("g");
+            gameController.AddComponent<GameController>().RestartGameState();
+            oneTimeSetup = true;
+        }
+
+        mobEntityInstance = GameObject.Instantiate(exampleMob, new Vector3(80, 80, 0), Quaternion.Euler(0,0,0));
+        mobEntityInstance.GetComponent<MobEntity>().SetPrefabName("swordsman_mob");
+    }
+
+    [TearDown]
+    public void TearDown(){
+        GameObject.DestroyImmediate(mobEntityInstance);
+        gameController.GetComponent<GameController>().RestartGameState();
     }
 
     /// <summary>
     /// Checks for following conditions upon mob initialization:
-    /// 1. if mob actually gets loaded (is not null)
+    /// 1. if mob object actually gets loaded on initialization
     /// 2. proper components have been initialized
     /// </summary>
-    [UnityTest]
-    public IEnumerator EmptyEntityTestInstantiation()
+    [Test]
+    public void EmptyEntityTestInstantiation()
     {
-        Assert.That(mobEntityInstance.GetComponent<MobEntity>(), !Is.Null);
-
-        yield return null;
-
-        Assert.That(mobEntityInstance.GetComponent<CharacterMovementController>(), !Is.Null);
-        Assert.That(mobEntityInstance, !Is.Null);
+        Assert.NotNull(mobEntityInstance);
+        Assert.NotNull(mobEntityInstance.GetComponent<MobEntity>());
+        Assert.NotNull(mobEntityInstance.GetComponent<CharacterMovementController>());
+        Assert.NotNull(mobEntityInstance.GetComponent<WeaponController>());
     }
 
     /// <summary>
@@ -43,26 +57,46 @@ public class EntityTest
     public void EntityTestDamageTaken()
     {
         int damage = 5;
-
         int startingHealth = mobEntityInstance.GetComponent<MobEntity>().GetHealth();
 
+        mobEntityInstance.GetComponent<MobEntity>().TakeDamage(damage);
         int damagedHealth = mobEntityInstance.GetComponent<MobEntity>().GetHealth();
 
         Assert.AreEqual(startingHealth - damage, damagedHealth);
     }
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
+    /// <summary>
+    /// Test if entity will move into range of enemy in order to fire
+    /// </summary>
+    /// <returns></returns>
     [UnityTest]
-    public IEnumerator EntityTestFiring()
+    public IEnumerator EntityTestFiringOutsideRange()
     {
-        GameObject playerInstance = GameObject.Instantiate(Resources.Load("Prefabs/Entities/player") as GameObject, null);
+        float deltaTime = 0;
 
-        mobEntityInstance.transform.position = new Vector3(25, 25, 0);
+        while (GameObject.FindObjectOfType<ProjectileEntity>() == null && deltaTime < 5){
+            yield return new WaitForSeconds(0.1f);
+            deltaTime += 0.1f;
+        }
 
-        yield return null;
-        yield return null;
-        yield return null;
+        Assert.That(GameObject.FindObjectOfType<ProjectileEntity>(), !Is.Null);
+    }
+
+    /// <summary>
+    /// Base case testing of if the entity will fire projectile at enemy at all
+    /// </summary>
+    /// <returns></returns>
+    [UnityTest]
+    public IEnumerator EntityTestFiringInsideRange()
+    {
+        mobEntityInstance.transform.position =  new Vector3(20, 20, 0);
+
+        float deltaTime = 0;
+
+        while (GameObject.FindObjectOfType<ProjectileEntity>() == null && deltaTime < 5){
+            yield return new WaitForSeconds(0.1f);
+            deltaTime += 0.1f;
+        }
 
         Assert.That(GameObject.FindObjectOfType<ProjectileEntity>(), !Is.Null);
     }

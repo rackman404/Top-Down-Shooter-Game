@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Unit and Integration Testing\EntityTest.cs" />
+    <Compile Include="Assets\Scripts\Unit and Integration Testing\SaveSystemTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Unit and Integration Testing\Unit and Integration Testing.asmdef" />
