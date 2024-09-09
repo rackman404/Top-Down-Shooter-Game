@@ -19,6 +19,7 @@ public partial class PlayerEntity : CharacterEntity
     /// </summary>
     public int score {get; private set;} = 0;
 
+    public int totalKills {get; private set;} = 0;
 
     // Start is called before the first frame update
     void Start()

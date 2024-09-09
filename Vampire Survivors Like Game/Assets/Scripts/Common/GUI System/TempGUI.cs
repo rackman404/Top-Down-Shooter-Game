@@ -41,7 +41,7 @@ public class TempGUI : MonoBehaviour
             for (int i = 0; i < entityRects.Count; i++){
                 //GUI.Box(unitHighlights[i], GUIContent.none, style);
                 GUI.Label(new Rect(entityRects[i].xMin, entityRects[i].yMax, entityRects[i].xMin + 20,entityRects[i].yMax - 20), "HP:" + entityHp[i]);
-                GUI.Label(new Rect (0, 0, 100, 50), "Score: " + GameController.Instance.levelInstance.playerInstance.score);
+                //GUI.Label(new Rect (0, 0, 100, 50), "Score: " + GameController.Instance.levelInstance.playerInstance.score);
             }
         }
         else{

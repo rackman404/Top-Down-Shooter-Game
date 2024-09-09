@@ -14,12 +14,8 @@ public class GUIMainController : MonoBehaviour
     private GUIMenuController GUIMenuScript;
     private GUILevelController GUILevelScript;
 
-    private bool menuOn = false;
-
-
     void Start(){
         GUILevelScript = Instantiate(GUILevelControllerPrefab,this.transform).GetComponent<GUILevelController>();
-        GUILevelScript.GetComponent<RectTransform>().SetPositionAndRotation(new Vector3 (550,291,0), Quaternion.Euler(0,0,0));
         GUIMenuScript = Instantiate(GUIMenuControllerPrefab).GetComponent<GUIMenuController>();
         GUIMenuScript.transform.SetParent(this.transform);
 
@@ -31,8 +27,24 @@ public class GUIMainController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (menuOn == false && GUIMenuScript.gameObject.activeSelf == true){
-            GUIMenuScript.gameObject.SetActive(false);
+        /*
+        if (GameController.Instance.levelInstance != null || GameController.Instance.paused == false && GUILevelScript.gameObject.activeSelf == false){
+            GUILevelScript.gameObject.SetActive(true);
         }
+        else if (GameController.Instance.levelInstance == null || GameController.Instance.paused == true && GUILevelScript.gameObject.activeSelf == true){
+            GUILevelScript.gameObject.SetActive(false);
+        }
+        */
+
+
+        if (GameController.Instance.paused == false && GUIMenuScript.gameObject.activeSelf == true){
+            GUIMenuScript.gameObject.SetActive(false);
+            GUILevelScript.gameObject.SetActive(true);
+        }
+        if (GameController.Instance.paused == true && GUIMenuScript.gameObject.activeSelf == false){
+            GUIMenuScript.gameObject.SetActive(true);
+            GUILevelScript.gameObject.SetActive(false);
+        }
+
     }
 }

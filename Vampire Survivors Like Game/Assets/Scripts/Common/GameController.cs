@@ -30,8 +30,6 @@ public class GameController : MonoBehaviour
     public GameObject playerPrefab;
     public Scene GUIScenePrefab;
 
-
-
     public LevelController levelInstance {get; private set;}
 
     [Header("Level Instance Params")]
@@ -56,11 +54,13 @@ public class GameController : MonoBehaviour
             Instance = this; 
         } 
     
-        /*
-        if (SceneManager.GetSceneByName("GUIScene").isLoaded == false){
-            SceneManager.LoadScene("GUIScene", LoadSceneMode.Additive);
+        if (Application.isEditor == false){
+            if (SceneManager.GetSceneByName("GUIScene").isLoaded == false){
+                SceneManager.LoadScene("GUIScene", LoadSceneMode.Additive);
+            }
         }
-        */
+
+        
 
 
 
@@ -87,7 +87,7 @@ public class GameController : MonoBehaviour
             if (Input.GetKey("space")){
                 RestartGameState();
             }
-        }
+        }    
     }
 
     void Update(){

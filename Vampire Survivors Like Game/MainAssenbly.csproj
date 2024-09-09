@@ -70,12 +70,12 @@
     <Compile Include="Assets\Scripts\Common\GUI System\TempGUI.cs" />
     <Compile Include="Assets\Scripts\Common\GUI System\Level GUI\GUILevelController.cs" />
     <Compile Include="Assets\Scripts\AI_COMPONENT\ImageReadout.cs" />
-    <Compile Include="Assets\Scripts\Common\LevelData.cs" />
     <Compile Include="Assets\Scripts\Common\Level System\LevelController.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponController.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\CharacterMovementController.cs" />
     <Compile Include="Assets\Scripts\Common\GameController.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\Mob Entity\MobEntity.cs" />
+    <Compile Include="Assets\Scripts\Common\Level System\LevelData.cs" />
     <Compile Include="Assets\Scripts\Common\Save Load System\ISaveLoadHandler.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\Player Entity\PlayerEntity.cs" />
     <Compile Include="Assets\Scripts\Terrain\Terrain.cs" />
@@ -962,6 +962,10 @@
     </Reference>
     <Reference Include="System.Xml.Serialization">
       <HintPath>D:\Utilities\Games\Unity\2022.3.8f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEditor.UI">
