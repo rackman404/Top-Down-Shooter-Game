@@ -14,18 +14,21 @@ public partial class PlayerEntity : CharacterEntity
     /// </summary>
     public bool isDead {get; private set;} = false;
 
-    /// <summary>
-    /// Player Instance's score.
-    /// </summary>
     public int score {get; private set;} = 0;
 
     public int totalKills {get; private set;} = 0;
+
+    public float timeAlive {get; private set;} = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         internalName = "player";
         Init();
+    }
+
+    void Update(){
+        timeAlive += Time.deltaTime;
     }
 
     // Update is called once per frame

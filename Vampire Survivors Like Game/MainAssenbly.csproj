@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\Common\GUI System\Menu GUI\GUIMenuController.cs" />
     <Compile Include="Assets\Scripts\Entities\Projectile\LinearProjectileEntity.cs" />
     <Compile Include="Assets\Scripts\Entities\Projectile\ProjectileEntity.cs" />
+    <Compile Include="Assets\Scripts\Entities\EGUI\EGUIController.cs" />
     <Compile Include="Assets\Scripts\Common\Save Load System\SaveLoadHandler.cs" />
   </ItemGroup>
   <ItemGroup>

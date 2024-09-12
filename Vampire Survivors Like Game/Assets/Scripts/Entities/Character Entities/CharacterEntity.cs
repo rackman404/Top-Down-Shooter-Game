@@ -20,6 +20,7 @@ public abstract class CharacterEntity : Entity
     /// Character entity attached Weapon prefabs. To be used to instantiate new weapons on runtime start.
     /// </summary>
     public GameObject[] weaponObjs;
+    
     protected WeaponController[] weaponControllers;
 
     /// <summary>

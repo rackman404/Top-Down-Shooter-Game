@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 966e8f04fe433454dbd2a503ae92010f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internalName: Energy Orb Attack
+  internalName: Energy Orb
   speed: 15
   damage: 5
   lifetime: 5

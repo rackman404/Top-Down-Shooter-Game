@@ -99,7 +99,6 @@ public class ImageReadout : MonoBehaviour{
                 var task = new System.Threading.Thread(ToJSON);
                 task.Start();           
         }
-
     }
 
     private void RecordFrameData(){

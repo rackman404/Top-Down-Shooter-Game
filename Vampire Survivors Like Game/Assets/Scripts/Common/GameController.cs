@@ -103,7 +103,7 @@ public class GameController : MonoBehaviour
         }
 
         //save functions upon key press. TODO: move from key press to actual GUI interactions
-        if (Input.GetKeyDown("p") && paused == true){
+        if (Input.GetKeyDown("p") && paused == true && !levelInstance.playerInstance.isDead){
             levelInstance.SaveLevelData();
         }
         if (Input.GetKeyDown("o") && paused == true){

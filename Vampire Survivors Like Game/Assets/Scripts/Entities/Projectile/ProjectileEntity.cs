@@ -14,8 +14,6 @@ public abstract class ProjectileEntity : Entity
 
     public float lifetime;
 
-    public float fireRate;
-
     public int projectilesFiredPerAttack;
 
     [SerializeField]

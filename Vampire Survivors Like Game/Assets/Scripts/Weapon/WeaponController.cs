@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PlasticPipe.PlasticProtocol.Messages;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
@@ -8,11 +9,19 @@ public class WeaponController : MonoBehaviour
 
     //public params
     public GameObject projectilePrefab;
+
     public float weaponCooldown;
+    
 
     private Entity parentEntity;
-
     private bool canAttack = true;
+
+    public ProjectileEntity projObj{get; private set;}
+
+
+    void Awake(){
+        projObj = projectilePrefab.GetComponent<ProjectileEntity>();
+    }
 
     /// <summary>
     /// Pseudo constructor. Returns this to allow for method chaining.

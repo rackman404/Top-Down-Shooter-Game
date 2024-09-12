@@ -27,23 +27,20 @@ public class GUIMainController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (GameController.Instance.levelInstance != null || GameController.Instance.paused == false && GUILevelScript.gameObject.activeSelf == false){
+
+        GUILevelScript.setLevelInstance(GameController.Instance.levelInstance);
+        if (GameController.Instance.levelInstance != null && GUILevelScript.gameObject.activeSelf == false){
             GUILevelScript.gameObject.SetActive(true);
         }
-        else if (GameController.Instance.levelInstance == null || GameController.Instance.paused == true && GUILevelScript.gameObject.activeSelf == true){
+        else if (GameController.Instance.levelInstance == null && GUILevelScript.gameObject.activeSelf == true){
             GUILevelScript.gameObject.SetActive(false);
         }
-        */
-
 
         if (GameController.Instance.paused == false && GUIMenuScript.gameObject.activeSelf == true){
             GUIMenuScript.gameObject.SetActive(false);
-            GUILevelScript.gameObject.SetActive(true);
         }
         if (GameController.Instance.paused == true && GUIMenuScript.gameObject.activeSelf == false){
             GUIMenuScript.gameObject.SetActive(true);
-            GUILevelScript.gameObject.SetActive(false);
         }
 
     }

@@ -46,11 +46,7 @@ public class TempGUI : MonoBehaviour
         }
         else{
             GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 50, Screen.width / 2 + 50, Screen.height + 50), "Gameover\nScore:" + GameController.Instance.levelInstance.playerInstance.score + "\nPress Space to Restart");
-        }
-
-
-
-        
+        } 
     }
 
     public void GUIRectWithObject(GameObject go) {
