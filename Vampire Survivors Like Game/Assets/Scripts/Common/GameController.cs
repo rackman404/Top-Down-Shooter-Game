@@ -53,54 +53,92 @@ public class GameController : MonoBehaviour
         { 
             Instance = this; 
         } 
-    
-        if (Application.isEditor == false){
-            if (SceneManager.GetSceneByName("GUIScene").isLoaded == false){
-                SceneManager.LoadScene("GUIScene", LoadSceneMode.Additive);
-            }
-        }
-
-        
-
-
-
-        levelInstance = new GameObject("level_instance").transform.gameObject.AddComponent<LevelController>().InitializeLevelInstance(
-        radiusFromPlayerToSpawn,
-        radiusFromPlayerToSpawnRange,
-        spawnChance,
-        mobSpawnList,
-        maxMobEntityCount);
 
         saveLoadController = gameObject.AddComponent<SaveLoadHandler>();
     }
 
+    void Start(){
+        if (Application.isEditor == false){
+            if (SceneManager.GetSceneByName("GUIScene").isLoaded == false){
+                SceneManager.LoadScene("GUIScene", LoadSceneMode.Additive);
+
+                paused = true;
+
+                /*
+                SceneManager.LoadScene("LevelScene", LoadSceneMode.Additive);
+
+                StartCoroutine(SetActive());
+            
+                IEnumerator SetActive(){ //because load scene does not load on the same frame, must set a coroutine to set it levelscene as active scene 
+                    bool done = false;
+                    while (done == false){
+                        yield return new WaitForSeconds(0.01f);
+                        if (SceneManager.GetSceneByName("LevelScene").isLoaded == true){
+                            Scene levelScene = SceneManager.GetSceneByName("LevelScene");
+                            SceneManager.SetActiveScene(levelScene);
+                            done = true;
+
+                            levelInstance = new GameObject("level_instance").transform.gameObject.AddComponent<LevelController>().InitializeLevelInstance(
+                            radiusFromPlayerToSpawn,
+                            radiusFromPlayerToSpawnRange,
+                            spawnChance,
+                            mobSpawnList,
+                            maxMobEntityCount);
+                        }
+                    }
+                }
+                */
+            }
+        }
+        else{
+            Scene levelScene = SceneManager.GetSceneByName("LevelScene");
+            SceneManager.SetActiveScene(levelScene);
+
+            levelInstance = new GameObject("level_instance").transform.gameObject.AddComponent<LevelController>().InitializeLevelInstance(
+            radiusFromPlayerToSpawn,
+            radiusFromPlayerToSpawnRange,
+            spawnChance,
+            mobSpawnList,
+            maxMobEntityCount);
+        }
+
+        
+    }
+
     void OnApplicationQuit(){
-        SaveAllData();
+        if (levelInstance != null){
+            SaveAllData();
+        }
+        
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (levelInstance.playerInstance.isDead == true){
-            gameState = false;
 
-            if (Input.GetKey("space")){
-                RestartGameState();
-            }
-        }    
+        if (levelInstance != null){
+            if (levelInstance.playerInstance.isDead == true){
+                gameState = false;
+
+                if (Input.GetKey("space")){
+                    RestartGameState();
+                }
+            }    
+        }
     }
 
     void Update(){
-        if (Input.GetKeyDown("escape")){
-            if (paused == false){
-                Time.timeScale = 0;
-                paused = true;
+        if (levelInstance != null){
+            if (Input.GetKeyDown("escape")){
+                if (paused == false){
+                    Pause();
+                }
+                else{
+                    Resume();
+                } 
             }
-            else{
-                Time.timeScale = 1;
-                paused = false;
-            } 
         }
+
 
         //save functions upon key press. TODO: move from key press to actual GUI interactions
         if (Input.GetKeyDown("p") && paused == true && !levelInstance.playerInstance.isDead){
@@ -120,16 +158,47 @@ public class GameController : MonoBehaviour
         if (levelInstance != null){
             Destroy(levelInstance.gameObject);
         }
-        
 
-        levelInstance = new GameObject("level_instance").transform.gameObject.AddComponent<LevelController>().InitializeLevelInstance(
-        radiusFromPlayerToSpawn,
-        radiusFromPlayerToSpawnRange,
-        spawnChance,
-        mobSpawnList,
-        maxMobEntityCount);
+        if (SceneManager.GetSceneByName("LevelScene").isLoaded == false){
+            SceneManager.LoadScene("LevelScene", LoadSceneMode.Additive);
+            
+            StartCoroutine(SetActive());
+            
+            IEnumerator SetActive(){ //because load scene does not load on the same frame, must set a coroutine to set it levelscene as active scene 
+                bool done = false;
+                while (done == false){
+                    yield return new WaitForSeconds(0.01f);
+                    if (SceneManager.GetSceneByName("LevelScene").isLoaded == true){
+                        Scene levelScene = SceneManager.GetSceneByName("LevelScene");
+                        SceneManager.SetActiveScene(levelScene);
+                        done = true;
 
+                        levelInstance = new GameObject("level_instance").transform.gameObject.AddComponent<LevelController>().InitializeLevelInstance(
+                        radiusFromPlayerToSpawn,
+                        radiusFromPlayerToSpawnRange,
+                        spawnChance,
+                        mobSpawnList,
+                        maxMobEntityCount);
+                    }
+                }
+            }
+        }
+        else {
+            levelInstance = new GameObject("level_instance").transform.gameObject.AddComponent<LevelController>().InitializeLevelInstance(
+            radiusFromPlayerToSpawn,
+            radiusFromPlayerToSpawnRange,
+            spawnChance,
+            mobSpawnList,
+            maxMobEntityCount);
+
+            //unpause and set game as valid
+        }
+
+        //unpause and set game as valid
+        Resume();
         gameState = true;
+
+        
     }
 
     /// <summary>
@@ -138,5 +207,21 @@ public class GameController : MonoBehaviour
     private void SaveAllData(){
         saveLoadController.SaveGamePrefs();
         levelInstance.SaveLevelData();
+    }
+
+
+    public void ExitLevel(){
+        Camera.main.transform.parent = this.transform;
+        SceneManager.UnloadSceneAsync("LevelScene");
+    }
+
+    public void Resume(){
+        Time.timeScale = 1;
+        paused = false;
+    }
+
+    public void Pause(){
+        Time.timeScale = 0;
+        paused = true;
     }
 }

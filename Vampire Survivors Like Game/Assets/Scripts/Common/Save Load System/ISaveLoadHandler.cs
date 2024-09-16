@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public interface ISaveLoadHandler
 {
-
     /// <summary>
     /// Returns a LevelData object
     /// </summary>

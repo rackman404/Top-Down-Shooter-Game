@@ -36,7 +36,17 @@ public class LevelController : MonoBehaviour
 
         //TEMP TERRAIN
         terrain = GameObject.Find("Grass_Sample");
-
+        
+        StartCoroutine(FindTerrain());
+        IEnumerator FindTerrain(){ //because load scene does not load on the same frame, must set a coroutine to set it levelscene as active scene 
+            while (terrain == null){
+                yield return new WaitForSeconds(0.01f);
+                terrain = GameObject.Find("Grass_Sample");
+            }
+        }
+            
+        //TEMP TERRAIN
+        terrain = GameObject.Find("Grass_Sample");
 
         projContainerObj = new GameObject("projectile_container");
         projContainerObj.transform.parent = transform;
@@ -108,7 +118,10 @@ public class LevelController : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Instatiates all level data saved within save file.
+    /// 1. instantiates mob data
+    /// 2. instantiates projectile data
+    /// 3. instanstiates the player
     /// </summary>
     public void InstantiateLevelData(){
         Debug.Log("Loading level data");
