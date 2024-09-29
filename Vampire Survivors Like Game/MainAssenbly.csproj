@@ -59,7 +59,7 @@
     <UnityVersion>2022.3.8f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\jacky\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.0.3\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\jacky\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.0.4\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="D:\Utilities\Games\Unity\2022.3.8f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="D:\Utilities\Games\Unity\2022.3.8f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -69,18 +69,23 @@
     <Compile Include="Assets\Scripts\Entities\Entity.cs" />
     <Compile Include="Assets\Scripts\Common\GUI System\TempGUI.cs" />
     <Compile Include="Assets\Scripts\Common\GUI System\Level GUI\GUILevelController.cs" />
+    <Compile Include="Assets\Scripts\Common\Sound System\SoundManager.cs" />
     <Compile Include="Assets\Scripts\AI_COMPONENT\ImageReadout.cs" />
+    <Compile Include="Assets\Scripts\Weapon\IWeaponController.cs" />
     <Compile Include="Assets\Scripts\Common\Level System\LevelController.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponController.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\CharacterMovementController.cs" />
     <Compile Include="Assets\Scripts\Common\GameController.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\Mob Entity\MobEntity.cs" />
     <Compile Include="Assets\Scripts\Common\Level System\LevelData.cs" />
+    <Compile Include="Assets\Scripts\Common\GUI System\Level GUI\MiniMapController.cs" />
     <Compile Include="Assets\Scripts\Common\Save Load System\ISaveLoadHandler.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\Player Entity\PlayerEntity.cs" />
     <Compile Include="Assets\Scripts\Terrain\Terrain.cs" />
+    <Compile Include="Assets\Scripts\Entities\EntitySoundController.cs" />
     <Compile Include="Assets\Scripts\Common\GUI System\Menu GUI\GUIMenuController.cs" />
     <Compile Include="Assets\Scripts\Entities\Projectile\LinearProjectileEntity.cs" />
+    <Compile Include="Assets\Scripts\Weapon\MinionSpawnController.cs" />
     <Compile Include="Assets\Scripts\Entities\Projectile\ProjectileEntity.cs" />
     <Compile Include="Assets\Scripts\Entities\EGUI\EGUIController.cs" />
     <Compile Include="Assets\Scripts\Common\Save Load System\SaveLoadHandler.cs" />

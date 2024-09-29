@@ -19,6 +19,9 @@ public class GUILevelController : MonoBehaviour
     private TMP_Text playerExpDisplay;
     private TMP_Text playerTimeAliveDisplay;
 
+    private Texture2D miniMapCompoment;
+    private MiniMapController miniMapScript;
+
     public GameObject death_panel;
 
     void Awake()

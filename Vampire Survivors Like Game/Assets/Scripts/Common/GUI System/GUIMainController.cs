@@ -19,11 +19,12 @@ public class GUIMainController : MonoBehaviour
     void Start(){
         GUILevelScript = Instantiate(GUILevelControllerPrefab,this.transform).GetComponent<GUILevelController>();
         GUIMenuScript = Instantiate(GUIMenuControllerPrefab, this.transform).GetComponent<GUIMenuController>();
-
+        
         GUIMenuScript.GUImainControl = this;
 
         if (GameController.Instance.levelInstance != null){ //if game was started without being on main menu (i.e editor)
             GUIMenuScript.gameObject.SetActive(false);
+            GUIMenuScript.GameMenuMode();
         }
         else{
             GUIMenuScript.gameObject.SetActive(true);

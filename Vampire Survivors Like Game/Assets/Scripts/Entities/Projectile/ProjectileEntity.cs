@@ -23,6 +23,8 @@ public abstract class ProjectileEntity : Entity
 
     public string originObjTag {get; protected set;}
 
+    private int parentFactionID;
+
     /// <summary>
     /// reference to intended target entity. If used, it should be checked to see if it is null or destroyed first.
     /// </summary>
@@ -53,16 +55,18 @@ public abstract class ProjectileEntity : Entity
     /// </summary>
     /// <param name="setDirectionVec"></param>
     /// <param name="originTag"></param>
-    public void SetParameters(Vector2 setDirectionVec, string originTag, GameObject oTargetObj, string prefabNameStr){
+    public void SetParameters(Vector2 setDirectionVec, string originTag, GameObject oTargetObj, string prefabNameStr, int pFactionID){
         directionVector = setDirectionVec.normalized;
         originObjTag = originTag;
         originalTargetObj = oTargetObj;
-        prefabName = prefabNameStr;        
+        prefabName = prefabNameStr;  
+        parentFactionID = pFactionID;      
 
-        if (originObjTag == "Player"){
+        if (parentFactionID == 2){
             Color redShifted = new Color(255,0,0);
             gameObject.GetComponentInChildren<SpriteRenderer>().color = redShifted;
         }
+        
     }
 
 
@@ -72,15 +76,23 @@ public abstract class ProjectileEntity : Entity
     /// </summary>
     /// <param name="collision"></param>
     void OnTriggerEnter2D(Collider2D collision){
+        CharacterEntity ent;
+        if (collision.gameObject.TryGetComponent<CharacterEntity>(out ent)){
+            if (ent.GetFactionID() != parentFactionID){
+                //Debug.Log(parentFactionID + " " + collision.gameObject.GetComponent<CharacterEntity>().GetFactionID());
+                collision.gameObject.GetComponent<CharacterEntity>().TakeDamage(damage);
+                Destroy(gameObject); //destroy self
+            }
+        }
+
+        /*
         if ((collision.gameObject.CompareTag("mob") || collision.gameObject.CompareTag("Player")) && !collision.gameObject.CompareTag(originObjTag)){
             collision.gameObject.GetComponent<CharacterEntity>().TakeDamage(damage);
             Destroy(gameObject); //destroy self
         }
-        /*
-        else if ({
-
-        }
         */
+
+
     }
 
 }

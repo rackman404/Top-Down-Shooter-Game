@@ -218,3 +218,4 @@ MonoBehaviour:
   speed: 15
   weaponObjs:
   - {fileID: 2870625082437626576, guid: 92dc4bad01e1448459148e13e212c855, type: 3}
+  - {fileID: 2870625082437626576, guid: 113a3f820cf13524294dfaa94fa697f4, type: 3}

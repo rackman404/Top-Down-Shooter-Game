@@ -30,6 +30,12 @@ public class GameController : MonoBehaviour
     public GameObject playerPrefab;
     public Scene GUIScenePrefab;
 
+    [System.Serializable]
+    public struct GameParameters
+    {
+        public int maxGlobalMobs;
+    }
+
     public LevelController levelInstance {get; private set;}
 
     [Header("Level Instance Params")]
@@ -55,6 +61,8 @@ public class GameController : MonoBehaviour
         } 
 
         saveLoadController = gameObject.AddComponent<SaveLoadHandler>();
+
+        gameObject.AddComponent<SoundManager>();
     }
 
     void Start(){
@@ -63,31 +71,6 @@ public class GameController : MonoBehaviour
                 SceneManager.LoadScene("GUIScene", LoadSceneMode.Additive);
 
                 paused = true;
-
-                /*
-                SceneManager.LoadScene("LevelScene", LoadSceneMode.Additive);
-
-                StartCoroutine(SetActive());
-            
-                IEnumerator SetActive(){ //because load scene does not load on the same frame, must set a coroutine to set it levelscene as active scene 
-                    bool done = false;
-                    while (done == false){
-                        yield return new WaitForSeconds(0.01f);
-                        if (SceneManager.GetSceneByName("LevelScene").isLoaded == true){
-                            Scene levelScene = SceneManager.GetSceneByName("LevelScene");
-                            SceneManager.SetActiveScene(levelScene);
-                            done = true;
-
-                            levelInstance = new GameObject("level_instance").transform.gameObject.AddComponent<LevelController>().InitializeLevelInstance(
-                            radiusFromPlayerToSpawn,
-                            radiusFromPlayerToSpawnRange,
-                            spawnChance,
-                            mobSpawnList,
-                            maxMobEntityCount);
-                        }
-                    }
-                }
-                */
             }
         }
         else{
@@ -209,7 +192,9 @@ public class GameController : MonoBehaviour
         levelInstance.SaveLevelData();
     }
 
-
+    /// <summary>
+    /// Exits level scene (into another scene such as the main menu).
+    /// </summary>
     public void ExitLevel(){
         Camera.main.transform.parent = this.transform;
         SceneManager.UnloadSceneAsync("LevelScene");

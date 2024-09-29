@@ -10,6 +10,8 @@ public abstract class Entity : MonoBehaviour
     protected SpriteRenderer spriteObj;
     protected BoxCollider2D entityCollider;
 
+    protected EntitySoundController soundController;
+
     protected Rigidbody2D rb;
 
     [Header("entiy params")]
@@ -22,6 +24,8 @@ public abstract class Entity : MonoBehaviour
     /// Should only be called by CharacterEntity and ProjectileEntity extended classes.
     /// </summary>
     protected void SpriteInit(){
+        soundController = gameObject.AddComponent<EntitySoundController>();
+
         spriteObj = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
         PolygonCollider2D temp = spriteObj.transform.gameObject.AddComponent<PolygonCollider2D>();
         entityCollider = transform.gameObject.AddComponent<BoxCollider2D>();

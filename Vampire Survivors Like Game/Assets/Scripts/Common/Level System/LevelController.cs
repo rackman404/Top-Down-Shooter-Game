@@ -77,7 +77,7 @@ public class LevelController : MonoBehaviour
                 Vector2 spawnPoint = Random.insideUnitCircle.normalized * Random.Range(radiusFromPlayerToSpawn-radiusFromPlayerToSpawnRange, radiusFromPlayerToSpawn + radiusFromPlayerToSpawnRange);
                     if (terrain.GetComponent<SpriteRenderer>().bounds.Contains(spawnPoint)){
                         int spawnType = Random.Range(0, mobSpawnList.Length - 1);
-                        Instantiate(mobSpawnList[spawnType], spawnPoint + new Vector2(playerInstance.transform.position.x, playerInstance.transform.position.y), Quaternion.Euler(0f,0f,0f), mobContainerObj.transform).GetComponent<MobEntity>().SetPrefabName(mobSpawnList[spawnType].name);
+                        Instantiate(mobSpawnList[spawnType], spawnPoint + new Vector2(playerInstance.transform.position.x, playerInstance.transform.position.y), Quaternion.Euler(0f,0f,0f), mobContainerObj.transform).GetComponent<MobEntity>().SetParameters(2).SetPrefabName(mobSpawnList[spawnType].name);
                     }  
                 } 
             }
@@ -144,7 +144,7 @@ public class LevelController : MonoBehaviour
                 new Vector3 (float.Parse(lvlData.projectileEntities[i]["direction vec x"]), float.Parse(lvlData.projectileEntities[i]["direction vec y"]), 0),
                 lvlData.projectileEntities[i]["origin tag"],
                 null,
-                lvlData.projectileEntities[i]["prefab name"]
+                lvlData.projectileEntities[i]["prefab name"], 1
                 );
 
             temp.transform.position = new Vector3(float.Parse(lvlData.projectileEntities[i]["transform x"]), float.Parse(lvlData.projectileEntities[i]["transform y"]), 0);

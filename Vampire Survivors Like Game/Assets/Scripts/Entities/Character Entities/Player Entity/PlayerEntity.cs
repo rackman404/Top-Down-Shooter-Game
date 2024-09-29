@@ -20,10 +20,11 @@ public partial class PlayerEntity : CharacterEntity
 
     public float timeAlive {get; private set;} = 0;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         internalName = "player";
+        factionID = 1;
+
         Init();
     }
 
@@ -64,6 +65,9 @@ public partial class PlayerEntity : CharacterEntity
         if (health <= 0 && isDead == false){
             health = 0;
             isDead = true;
+
+            SoundManager.Instance.BeginGameOverSFX();
+
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             Destroy(spriteObj.gameObject);
         }
@@ -77,7 +81,7 @@ public partial class PlayerEntity : CharacterEntity
             float leastDist = Int32.MaxValue;
             for (int i = 0; i < mobs.Length; i++){
                 float dist =  Vector3.Distance(mobs[i].transform.position, transform.position);
-                if (dist < leastDist){
+                if (dist < leastDist && this.factionID != mobs[i].GetComponent<CharacterEntity>().GetFactionID()){
                     leastDist = dist;
                     leastDistObj = mobs[i];
                 }

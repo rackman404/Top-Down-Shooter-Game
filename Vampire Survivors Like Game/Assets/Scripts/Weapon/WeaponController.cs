@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
-public class WeaponController : MonoBehaviour
+public class WeaponController : MonoBehaviour, IWeaponController
 {
 
     //public params
@@ -11,12 +11,12 @@ public class WeaponController : MonoBehaviour
 
     public float weaponCooldown;
     
-
-    private Entity parentEntity;
+    private CharacterEntity parentEntity;
     private bool canAttack = true;
 
     public ProjectileEntity projObj{get; private set;}
 
+    private int parentFactionID;
 
     void Awake(){
         projObj = projectilePrefab.GetComponent<ProjectileEntity>();
@@ -25,9 +25,19 @@ public class WeaponController : MonoBehaviour
     /// <summary>
     /// Pseudo constructor. Returns this to allow for method chaining.
     /// </summary>
-    public WeaponController Init(Entity parentE){
+    public IWeaponController Init(CharacterEntity parentE){
         parentEntity = parentE;
+        parentFactionID = parentEntity.GetFactionID();
+
+        Debug.Log(parentFactionID + "weap");
+
         return this;
+    }
+
+    void FixedUpdate(){
+        if (parentFactionID == 0){
+            parentFactionID = parentEntity.GetFactionID();
+        }
     }
 
     /// <summary>
@@ -35,10 +45,10 @@ public class WeaponController : MonoBehaviour
     /// </summary>
     /// <param name="targetPos"></param>
     public void Fire(Vector3 targetPos, GameObject targetObj){
-         if (canAttack == true){
+        if (canAttack == true){
             if (projectilePrefab.GetComponent<ProjectileEntity>().speed * projectilePrefab.GetComponent<ProjectileEntity>().lifetime >= Vector3.Distance(targetPos, parentEntity.transform.position)){
                 StartCoroutine(AttackCycle());
-                Instantiate(projectilePrefab, transform.position, transform.rotation).GetComponent<ProjectileEntity>().SetParameters(targetPos - parentEntity.transform.position, parentEntity.tag, targetObj, projectilePrefab.name);
+                Instantiate(projectilePrefab, transform.position, transform.rotation).GetComponent<ProjectileEntity>().SetParameters(targetPos - parentEntity.transform.position, parentEntity.tag, targetObj, projectilePrefab.name, parentFactionID);
             }
         }
     }
