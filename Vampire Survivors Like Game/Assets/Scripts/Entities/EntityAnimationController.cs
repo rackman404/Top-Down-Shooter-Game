@@ -2,47 +2,80 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityAnimationController : StateMachineBehaviour
+public class EntityAnimationController: MonoBehaviour
 {
-    // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    Animator anim;
 
-    //OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        
+    Rigidbody2D rb;
+
+    struct Animations{
+        public AnimationClip anim_left {private set; get;}
+        public AnimationClip anim_right {private set; get;}
+        public AnimationClip anim_forward {private set; get;}
+        public AnimationClip anim_backward {private set; get;}
+        public AnimationClip anim_idle {private set; get;}
+
+        public AnimationClip current_clip;
+        public AnimationClip previous_clip;
+
+        public Animations(string spriteResourceName){
+            anim_left = Resources.Load<AnimationClip>("Sprites/Animations/" + spriteResourceName + "_left");
+            anim_right = Resources.Load<AnimationClip>("Sprites/Animations/" + spriteResourceName + "_right");
+            anim_forward = Resources.Load<AnimationClip>("Sprites/Animations/" + spriteResourceName + "_forward");
+            anim_backward = Resources.Load<AnimationClip>("Sprites/Animations/" + spriteResourceName + "_backward");
+            anim_idle = Resources.Load<AnimationClip>("Sprites/Animations/" + spriteResourceName + "_idle");
+
+            current_clip = anim_idle;
+            previous_clip = anim_idle;
+        }
     }
 
-    // OnStateExit is called before OnStateExit is called on any state inside this state machine
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    Animations animations;
+    
+    public EntityAnimationController Constructor(Animator attachedAnim, string spriteName, Rigidbody2D entityRb){
+        anim = attachedAnim;
 
-    // OnStateMove is called before OnStateMove is called on any state inside this state machine
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+        animations = new Animations(spriteName);
 
-    // OnStateIK is called before OnStateIK is called on any state inside this state machine
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+        rb = entityRb;
 
-    // OnStateMachineEnter is called when entering a state machine via its Entry Node
-    override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
-    {
-        
+        return this;
     }
 
-    // OnStateMachineExit is called when exiting a state machine via its Exit Node
-    //override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)
-    //{
-    //    
-    //}
+    private void FixedUpdate (){
+        float x = 0, y = 0;
+
+        if (rb != null){
+            x = Mathf.Abs(rb.velocity.x);
+            y = Mathf.Abs(rb.velocity.y);
+
+            animations.previous_clip = animations.current_clip;
+
+            if (rb.velocity.magnitude == 0){
+                animations.current_clip = animations.anim_idle;
+            }
+            else if (x > y){
+                animations.current_clip = animations.anim_left;
+
+            }
+            else if (x < y){
+                animations.current_clip = animations.anim_forward;
+
+            }
+
+            SwitchAnims();
+        }
+    }
+
+    private void SwitchAnims(){
+        if (animations.previous_clip == animations.current_clip){
+            return;
+        }
+        else{
+
+            anim.StopPlayback();
+            anim.Play(animations.current_clip.name);
+        }
+    }
+
 }

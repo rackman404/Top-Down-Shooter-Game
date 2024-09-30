@@ -10,8 +10,9 @@ public abstract class Entity : MonoBehaviour
     protected SpriteRenderer spriteObj;
     protected BoxCollider2D entityCollider;
 
+    protected Animator entityAnim;
 
-    protected Animator entityAnimator;
+    protected EntityAnimationController entityAnimController;
 
     protected Rigidbody2D rb;
 
@@ -25,7 +26,8 @@ public abstract class Entity : MonoBehaviour
     /// Should only be called by CharacterEntity and ProjectileEntity extended classes.
     /// </summary>
     protected void SpriteInit(){
-        entityAnimator = gameObject.GetComponentInChildren<Animator>();
+
+        
 
         spriteObj = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
         PolygonCollider2D temp = spriteObj.transform.gameObject.AddComponent<PolygonCollider2D>();
@@ -37,6 +39,15 @@ public abstract class Entity : MonoBehaviour
         rb = gameObject.transform.gameObject.AddComponent<Rigidbody2D>();
         rb.gravityScale = 0;
         rb.freezeRotation = true;
+
+        
+        
+        
+        entityAnim = gameObject.GetComponentInChildren<Animator>();
+
+        if (entityAnim != null){
+            entityAnimController = gameObject.AddComponent<EntityAnimationController>().Constructor(entityAnim, spriteObj.sprite.name.TrimEnd('_','0'), rb);
+        }
     }
 
     public string GetInternalName(){

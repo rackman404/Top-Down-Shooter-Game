@@ -175,7 +175,7 @@ MonoBehaviour:
     m_Handle: 0
   radiusFromPlayerToSpawn: 150
   radiusFromPlayerToSpawnRange: 20
-  spawnChance: 5
+  spawnChance: 10
   mobSpawnList:
   - {fileID: 6620483800402619345, guid: cd089a5ad2a87e24ba34eb685d9951a6, type: 3}
   maxMobEntityCount: 50

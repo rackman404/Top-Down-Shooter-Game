@@ -40,18 +40,16 @@ public class MinionSpawnController : MonoBehaviour , IWeaponController
         if (canSpawn == true){
             StartCoroutine(SpawnCycle());
             Vector2 spawnPoint = Random.insideUnitCircle.normalized * Random.Range(10f, 15f);
-            StartCoroutine(SpawnMob(spawnPoint));
+            StartCoroutine(SpawnMob(spawnPoint, new Vector2(transform.position.x, transform.position.y)) );
         }
     }
 
-    IEnumerator SpawnMob(Vector2 spawnPoint){
+    IEnumerator SpawnMob(Vector2 spawnPoint, Vector2 previousEntityPos){
         GameObject fx = GameObject.Instantiate(summonFXPrefab, spawnPoint + new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0f,0f,0f));
         while (fx != null){
             yield return new WaitForEndOfFrame();
         }
-        GameObject.Instantiate(mobSpawnTypePrefab, spawnPoint + new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0f,0f,0f), GameController.Instance.levelInstance.mobContainerObj.transform).GetComponent<MobEntity>().SetParameters(parentFactionID).SetPrefabName(mobSpawnTypePrefab.name);
-        
-
+        GameObject.Instantiate(mobSpawnTypePrefab, spawnPoint + previousEntityPos, Quaternion.Euler(0f,0f,0f), GameController.Instance.levelInstance.mobContainerObj.transform).GetComponent<MobEntity>().SetParameters(parentFactionID).SetPrefabName(mobSpawnTypePrefab.name);
         
     }
 

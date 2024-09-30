@@ -14,7 +14,7 @@ public class WeaponSoundController : MonoBehaviour
     {
         weaponAudioSource = gameObject.AddComponent<AudioSource>();
         weaponAudioSource.loop = false;
-        weaponAudioSource.volume = 0.2f;
+        weaponAudioSource.volume = 0.05f;
 
         weaponTriggerSFX = Resources.Load<AudioClip>("Sound/270396_spell_01");
     }

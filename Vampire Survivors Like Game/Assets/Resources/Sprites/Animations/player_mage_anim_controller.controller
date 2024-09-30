@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: player_left
+  m_Name: player_mage_sprite_left
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions: []
@@ -67,7 +67,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: player_forward
+  m_Name: player_mage_sprite_forward
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions: []
@@ -93,7 +93,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: player_right
+  m_Name: player_mage_sprite_right
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions: []
@@ -126,13 +126,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: velocityY
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -153,7 +153,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: player_idle
+  m_Name: player_mage_sprite_idle
   m_Speed: 0.1
   m_CycleOffset: 0
   m_Transitions: []
@@ -179,7 +179,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: player_backward
+  m_Name: player_mage_sprite_backward
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions: []
