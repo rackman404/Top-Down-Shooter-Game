@@ -30,6 +30,7 @@ public partial class PlayerEntity : CharacterEntity
 
     void Update(){
         timeAlive += Time.deltaTime;
+        
     }
 
     // Update is called once per frame
@@ -40,19 +41,22 @@ public partial class PlayerEntity : CharacterEntity
                 Vector3 movementVector = Vector2.zero;
 
                 if (Input.GetKey("w")){
-                    movementVector += new Vector3 (0, speed * Time.deltaTime, 0);
+                    movementVector += new Vector3 (0, speed, 0);
                 }
                 if (Input.GetKey("a")){
-                    movementVector += new Vector3 (-speed * Time.deltaTime, 0, 0);
+                    movementVector += new Vector3 (-speed, 0, 0);
                 }
                 if (Input.GetKey("s")){
-                    movementVector += new Vector3 (0, -speed * Time.deltaTime, 0);
+                    movementVector += new Vector3 (0, -speed, 0);
                 }
                 if (Input.GetKey("d")){
-                    movementVector += new Vector3 (speed * Time.deltaTime, 0, 0);
+                    movementVector += new Vector3 (speed, 0, 0);
                 }
 
                 movementController.MoveTo(movementVector, rb);
+            }
+            else{
+                movementController.MoveTo(new Vector2(), rb);
             }
             Attack();
         }

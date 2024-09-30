@@ -10,6 +10,8 @@ public class WeaponController : MonoBehaviour, IWeaponController
     public GameObject projectilePrefab;
 
     public float weaponCooldown;
+
+    private WeaponSoundController soundController;
     
     private CharacterEntity parentEntity;
     private bool canAttack = true;
@@ -20,6 +22,7 @@ public class WeaponController : MonoBehaviour, IWeaponController
 
     void Awake(){
         projObj = projectilePrefab.GetComponent<ProjectileEntity>();
+        soundController = gameObject.AddComponent<WeaponSoundController>();
     }
 
     /// <summary>
@@ -28,8 +31,6 @@ public class WeaponController : MonoBehaviour, IWeaponController
     public IWeaponController Init(CharacterEntity parentE){
         parentEntity = parentE;
         parentFactionID = parentEntity.GetFactionID();
-
-        Debug.Log(parentFactionID + "weap");
 
         return this;
     }
@@ -48,6 +49,8 @@ public class WeaponController : MonoBehaviour, IWeaponController
         if (canAttack == true){
             if (projectilePrefab.GetComponent<ProjectileEntity>().speed * projectilePrefab.GetComponent<ProjectileEntity>().lifetime >= Vector3.Distance(targetPos, parentEntity.transform.position)){
                 StartCoroutine(AttackCycle());
+
+                soundController.FireTriggerSFX();
                 Instantiate(projectilePrefab, transform.position, transform.rotation).GetComponent<ProjectileEntity>().SetParameters(targetPos - parentEntity.transform.position, parentEntity.tag, targetObj, projectilePrefab.name, parentFactionID);
             }
         }

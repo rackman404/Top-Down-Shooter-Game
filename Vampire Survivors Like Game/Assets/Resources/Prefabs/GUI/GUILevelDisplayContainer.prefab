@@ -169,7 +169,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 229.9}
-  m_SizeDelta: {x: 250, y: 250}
+  m_SizeDelta: {x: 248.1, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4892564441325685759
 CanvasRenderer:
@@ -668,7 +668,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0.10253906}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &5717879254396918118
 MonoBehaviour:
@@ -1123,7 +1123,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -11.3, y: 231.3}
+  m_AnchoredPosition: {x: -11.299988, y: 231.3}
   m_SizeDelta: {x: 174.4, y: 28.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &952459603110503465
@@ -1530,7 +1530,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 550, y: -266}
+  m_AnchoredPosition: {x: 551.4, y: -266.9}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &279373671967359574
@@ -1952,7 +1952,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 229.9}
-  m_SizeDelta: {x: 337.3, y: 77.1}
+  m_SizeDelta: {x: 389.7, y: 74.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2458653956286540774
 CanvasRenderer:
@@ -1975,7 +1975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
+  m_Color: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1990,8 +1990,8 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_UseSpriteMesh: 1
+  m_PixelsPerUnitMultiplier: 9.1
 --- !u!1 &6529494290597707184
 GameObject:
   m_ObjectHideFlags: 0

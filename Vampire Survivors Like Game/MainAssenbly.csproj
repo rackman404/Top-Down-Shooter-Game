@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Common\GUI System\GUIMainController.cs" />
+    <Compile Include="Assets\Scripts\FX\testAnim.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\CharacterEntity.cs" />
     <Compile Include="Assets\Scripts\Entities\Entity.cs" />
     <Compile Include="Assets\Scripts\Common\GUI System\TempGUI.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Scripts\Common\Level System\LevelController.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponController.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\CharacterMovementController.cs" />
+    <Compile Include="Assets\Scripts\Entities\EntityAnimationController.cs" />
     <Compile Include="Assets\Scripts\Common\GameController.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\Mob Entity\MobEntity.cs" />
     <Compile Include="Assets\Scripts\Common\Level System\LevelData.cs" />
@@ -82,11 +84,12 @@
     <Compile Include="Assets\Scripts\Common\Save Load System\ISaveLoadHandler.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\Player Entity\PlayerEntity.cs" />
     <Compile Include="Assets\Scripts\Terrain\Terrain.cs" />
-    <Compile Include="Assets\Scripts\Entities\EntitySoundController.cs" />
     <Compile Include="Assets\Scripts\Common\GUI System\Menu GUI\GUIMenuController.cs" />
     <Compile Include="Assets\Scripts\Entities\Projectile\LinearProjectileEntity.cs" />
+    <Compile Include="Assets\Scripts\Weapon\WeaponSoundController.cs" />
     <Compile Include="Assets\Scripts\Weapon\MinionSpawnController.cs" />
     <Compile Include="Assets\Scripts\Entities\Projectile\ProjectileEntity.cs" />
+    <Compile Include="Assets\Scripts\FX\FXDelete.cs" />
     <Compile Include="Assets\Scripts\Entities\EGUI\EGUIController.cs" />
     <Compile Include="Assets\Scripts\Common\Save Load System\SaveLoadHandler.cs" />
   </ItemGroup>
@@ -448,6 +451,10 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Collections.LowLevel.ILSupport">
+      <HintPath>Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="unityplastic">
