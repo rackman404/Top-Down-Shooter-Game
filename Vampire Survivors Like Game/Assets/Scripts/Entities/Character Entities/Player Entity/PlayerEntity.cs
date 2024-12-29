@@ -1,12 +1,43 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 
 
 public partial class PlayerEntity : CharacterEntity
 {
+
+    #region DEBUG STUFF
+
+    private Vector3 previousInput = Vector3.zero; 
+
+    public void SetPreviousInput(string str){
+        previousInput = Vector3.zero; 
+    
+        if (str.Contains("r") && isDead == true){
+            GameController.Instance.RestartGameState();     
+        }
+
+        if (str.Contains("w")){
+        previousInput += new Vector3 (0, speed, 0);
+        }
+        if (str.Contains("a")){
+            previousInput += new Vector3 (-speed, 0, 0);
+        }
+        if (str.Contains("s")){
+            previousInput += new Vector3 (0, -speed, 0);
+        }
+        if (str.Contains("d")){
+            previousInput += new Vector3 (speed, 0, 0);
+        }
+      
+        
+
+    }
+
+    #endregion
 
     //public params
     /// <summary>
@@ -33,34 +64,43 @@ public partial class PlayerEntity : CharacterEntity
         
     }
 
+
     // Update is called once per frame
     void FixedUpdate()
     {   
         if (isDead == false){
-            if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")){
-                Vector3 movementVector = Vector2.zero;
+            if (GameController.Instance.DEBUGMODE == false){
 
-                if (Input.GetKey("w")){
-                    movementVector += new Vector3 (0, speed, 0);
-                }
-                if (Input.GetKey("a")){
-                    movementVector += new Vector3 (-speed, 0, 0);
-                }
-                if (Input.GetKey("s")){
-                    movementVector += new Vector3 (0, -speed, 0);
-                }
-                if (Input.GetKey("d")){
-                    movementVector += new Vector3 (speed, 0, 0);
-                }
+                    if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")){
+                    Vector3 movementVector = Vector2.zero;
 
-                movementController.MoveTo(movementVector, rb);
+                    if (Input.GetKey("w")){
+                        movementVector += new Vector3 (0, speed, 0);
+                    }
+                    if (Input.GetKey("a")){
+                        movementVector += new Vector3 (-speed, 0, 0);
+                    }
+                    if (Input.GetKey("s")){
+                        movementVector += new Vector3 (0, -speed, 0);
+                    }
+                    if (Input.GetKey("d")){
+                        movementVector += new Vector3 (speed, 0, 0);
+                    }
+
+                    movementController.MoveTo(movementVector, rb);
+                }
+                else{
+                    movementController.MoveTo(new Vector2(), rb);
+                }
             }
             else{
-                movementController.MoveTo(new Vector2(), rb);
+                movementController.MoveTo(previousInput, rb);       
             }
+
             Attack();
         }
     }
+    
 
     public override void TakeDamage(int dmg)
     {
@@ -69,6 +109,8 @@ public partial class PlayerEntity : CharacterEntity
         if (health <= 0 && isDead == false){
             health = 0;
             isDead = true;
+
+            rb.velocity = Vector2.zero;
 
             SoundManager.Instance.BeginGameOverSFX();
 

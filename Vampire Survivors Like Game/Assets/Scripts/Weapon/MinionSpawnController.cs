@@ -8,6 +8,15 @@ using Quaternion = UnityEngine.Quaternion;
 
 public class MinionSpawnController : MonoBehaviour , IWeaponController
 {
+    [SerializeField]
+    public string internalName { get; set; }
+    public WeaponType type { get; set; }
+
+    public int maxSpawnedMobs;
+
+    public List<GameObject> spawnedMobs;
+
+    public string editorInternalName;
 
     public GameObject mobSpawnTypePrefab;
 
@@ -25,12 +34,16 @@ public class MinionSpawnController : MonoBehaviour , IWeaponController
 
     void Awake(){
         mobObj = mobSpawnTypePrefab.GetComponent<MobEntity>();
+
+        internalName = editorInternalName;
     }
 
     /// <summary>
     /// Pseudo constructor. Returns this to allow for method chaining.
     /// </summary>
     public IWeaponController Init(CharacterEntity parentE){
+        type = WeaponType.Spawner;
+
         parentEntity = parentE;
         parentFactionID = parentEntity.GetFactionID();
         return this;
@@ -44,12 +57,31 @@ public class MinionSpawnController : MonoBehaviour , IWeaponController
         }
     }
 
+    /// <summary>
+    /// checks if additional mobs can be spawned. Will spawn if so.
+    /// </summary>
+    /// <param name="spawnPoint"></param>
+    /// <param name="previousEntityPos"></param>
+    /// <returns></returns>
     IEnumerator SpawnMob(Vector2 spawnPoint, Vector2 previousEntityPos){
-        GameObject fx = GameObject.Instantiate(summonFXPrefab, spawnPoint + new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0f,0f,0f));
-        while (fx != null){
-            yield return new WaitForEndOfFrame();
+
+
+        
+        for (int i = spawnedMobs.Count - 1; i > 0; i--){
+            if (spawnedMobs[i] == null){
+                spawnedMobs.RemoveAt(i);
+            }
         }
-        GameObject.Instantiate(mobSpawnTypePrefab, spawnPoint + previousEntityPos, Quaternion.Euler(0f,0f,0f), GameController.Instance.levelInstance.mobContainerObj.transform).GetComponent<MobEntity>().SetParameters(parentFactionID).SetPrefabName(mobSpawnTypePrefab.name);
+
+        if (spawnedMobs.Count < maxSpawnedMobs){
+                    GameObject fx = GameObject.Instantiate(summonFXPrefab, spawnPoint + new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0f,0f,0f));
+        while (fx != null){
+            yield return new WaitForEndOfFrame(); //delay spawning until fx is over
+        }
+            
+            spawnedMobs.Add(GameObject.Instantiate(mobSpawnTypePrefab, spawnPoint + previousEntityPos, Quaternion.Euler(0f,0f,0f), GameController.Instance.levelInstance.mobContainerObj.transform).GetComponent<MobEntity>().SetParameters(parentFactionID).SetPrefabName(mobSpawnTypePrefab.name).gameObject);
+        }
+        
         
     }
 

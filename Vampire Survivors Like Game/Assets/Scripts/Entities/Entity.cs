@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
 
 
 public abstract class Entity : MonoBehaviour
@@ -33,11 +34,12 @@ public abstract class Entity : MonoBehaviour
         PolygonCollider2D temp = spriteObj.transform.gameObject.AddComponent<PolygonCollider2D>();
         entityCollider = transform.gameObject.AddComponent<BoxCollider2D>();
         entityCollider.size = temp.bounds.size;
-        entityCollider.isTrigger = false;
+        entityCollider.isTrigger = true;
         Destroy(temp);
 
         rb = gameObject.transform.gameObject.AddComponent<Rigidbody2D>();
         rb.gravityScale = 0;
+        rb.drag = 1;
         rb.freezeRotation = true;
 
         
@@ -57,5 +59,9 @@ public abstract class Entity : MonoBehaviour
     public Entity SetPrefabName(string str){
         prefabName = str;
         return this;
+    }
+
+    public Vector2 GetVelocity(){
+        return rb.velocity;
     }
 }

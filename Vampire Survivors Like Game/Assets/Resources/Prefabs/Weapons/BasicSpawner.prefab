@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a471da75aa035b043a8da017aff098a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpawnedMobs: 10
+  spawnedMobs: []
+  editorInternalName: Basic Swordsman Spawner
   mobSpawnTypePrefab: {fileID: 6620483800402619345, guid: cd089a5ad2a87e24ba34eb685d9951a6, type: 3}
   summonFXPrefab: {fileID: 8507405916602697435, guid: c5fee1b8d887e2045a8bb00bcab7aefc, type: 3}
   weaponCooldown: 2.5

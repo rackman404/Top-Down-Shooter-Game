@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; 
+using TMPro;
+using System.Diagnostics;
 
 
 public class GUILevelController : MonoBehaviour
@@ -71,12 +72,27 @@ public class GUILevelController : MonoBehaviour
             playerTimeAliveDisplay.text = "Time Alive - " + (int)lvlInstance.playerInstance.timeAlive + " Sec";
             playerHealthDisplay.text = "Health: " + lvlInstance.playerInstance.GetHealth();
 
-            WeaponController[] weapons = lvlInstance.playerInstance.GetComponentsInChildren<WeaponController>();
+            IWeaponController[] weapons = lvlInstance.playerInstance.GetComponentsInChildren<IWeaponController>();
 
             string txt = "Weapons - \n";
             for (int i = 0; i < weapons.Length; i++){
-                txt += weapons[i].projObj.internalName + "\n";
-                txt += "Stats: dmg - " + weapons[i].projObj.damage + " cooldown - " + weapons[i].weaponCooldown;
+                txt += weapons[i].internalName + "\n";
+
+                switch(weapons[i].type){
+                    case WeaponType.Spawner:
+                        MinionSpawnController mWeapon = weapons[i] as MinionSpawnController;
+                        txt += "Minion Count: " + mWeapon.spawnedMobs.Count + " / " + mWeapon.maxSpawnedMobs + "\n";
+                        break;
+
+                    case WeaponType.Projectile:
+                        WeaponController pWeapon = weapons[i] as WeaponController;
+                        txt += "Weapon Damage: " + pWeapon.projObj.damage + "\n";
+                        break;
+                    default:
+                        break;
+                }
+
+                txt += "------------ \n";
             }
 
             playerWeaponDisplay.text = txt;

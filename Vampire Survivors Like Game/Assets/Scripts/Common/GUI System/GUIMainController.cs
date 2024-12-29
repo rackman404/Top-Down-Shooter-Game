@@ -22,7 +22,7 @@ public class GUIMainController : MonoBehaviour
         
         GUIMenuScript.GUImainControl = this;
 
-        if (GameController.Instance.levelInstance != null){ //if game was started without being on main menu (i.e editor)
+        if (GameController.Instance.levelInstance != null && GameController.Instance.DEBUGMODE == false){ //if game was started without being on main menu (i.e editor)
             GUIMenuScript.gameObject.SetActive(false);
             GUIMenuScript.GameMenuMode();
         }

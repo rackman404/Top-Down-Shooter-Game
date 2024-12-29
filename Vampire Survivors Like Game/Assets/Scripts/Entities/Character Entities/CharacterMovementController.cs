@@ -6,11 +6,18 @@ using UnityEngine;
 public class CharacterMovementController : MonoBehaviour
 {
 
+    /// <summary>
+    /// player movement function
+    /// </summary>
+    /// <param name="targetPos"></param>
+    /// <param name="rb"></param>
     public void MoveTo(Vector3 targetPos, Rigidbody2D rb){
         //gameObject.transform.position += targetPos;
         rb.velocity = targetPos;
         //rb.AddForce(targetPos.normalized);
         //rb.AddForce(transform.up * 1);
+
+        
     }
 
     public void MoveTowards(Vector3 targetPos, float speed, Rigidbody2D thisRb){

@@ -4,9 +4,16 @@ using TMPro;
 using UnityEngine;
 using System.Linq;
 
+
 public class MobEntity : CharacterEntity
 {
+
+    //direct where mob should move
+    public Vector3 waypoint;
+
     private GameObject target = null;
+
+    private EntityAiController entityAI;
 
     public MobEntity SetParameters(int faction){
         factionID = faction;
@@ -17,24 +24,29 @@ public class MobEntity : CharacterEntity
             gameObject.GetComponentInChildren<SpriteRenderer>().color = redShifted;
         }
 
+        entityAI = gameObject.AddComponent<EntityAiController>().Init(this, weaponControllers);
+
         return this;
     }
 
     // Start is called before the first frame update
     void Awake()
     {
+        waypoint = transform.position; //set initial position point at current pos
         Init();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         if (GameController.Instance.levelInstance.playerInstance.isDead == false){
+            
             Attack();
+
             //movement
-            if (target != null){
-                movementController.MoveTowards(target.transform.position, speed, rb);
-            }
+            movementController.MoveTowards(waypoint, speed, rb);
+            
 
         }
     }

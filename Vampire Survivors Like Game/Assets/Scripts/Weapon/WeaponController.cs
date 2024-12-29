@@ -5,8 +5,12 @@ using UnityEngine.Assertions.Must;
 
 public class WeaponController : MonoBehaviour, IWeaponController
 {
+    public string internalName { get; set; }
+    public WeaponType type { get; set; }
 
     //public params
+    public string editorInternalName;
+
     public GameObject projectilePrefab;
 
     public float weaponCooldown;
@@ -23,12 +27,16 @@ public class WeaponController : MonoBehaviour, IWeaponController
     void Awake(){
         projObj = projectilePrefab.GetComponent<ProjectileEntity>();
         soundController = gameObject.AddComponent<WeaponSoundController>();
+
+        internalName = editorInternalName;
     }
 
     /// <summary>
     /// Pseudo constructor. Returns this to allow for method chaining.
     /// </summary>
     public IWeaponController Init(CharacterEntity parentE){
+        type = WeaponType.Projectile;
+
         parentEntity = parentE;
         parentFactionID = parentEntity.GetFactionID();
 

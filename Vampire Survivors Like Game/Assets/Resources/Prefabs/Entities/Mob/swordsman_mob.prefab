@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   internalName: Swordsman
   health: 10
-  speed: 7.5
+  speed: 10
   weaponObjs:
   - {fileID: 2870625082437626576, guid: 92dc4bad01e1448459148e13e212c855, type: 3}
+  waypoint: {x: 0, y: 0, z: 0}

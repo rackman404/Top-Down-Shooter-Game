@@ -20,9 +20,14 @@ public class GameController : MonoBehaviour
     /// </summary>
     private LevelData lvlData;
 
+    /// <summary>
+    /// Used for entering the main level on game load.
+    /// </summary>
+    public readonly bool DEBUGMODE = false;
+
     public static GameController Instance {get; private set; }
 
-    public bool gameState {get; private set;} = true;
+    public bool gameState {get; private set;} = false;
 
     public bool paused {get; private set;} = false;
 
@@ -68,12 +73,18 @@ public class GameController : MonoBehaviour
     void Start(){
         if (Application.isEditor == false){
             if (SceneManager.GetSceneByName("GUIScene").isLoaded == false){
-                SceneManager.LoadScene("GUIScene", LoadSceneMode.Additive);
-
-                paused = true;
+                    SceneManager.LoadScene("GUIScene", LoadSceneMode.Additive);
+                    paused = true;
             }
+            
+            if (DEBUGMODE == true){
+                RestartGameState();
+                paused = false;
+            }
+            
+
         }
-        else{
+        else{ 
             Scene levelScene = SceneManager.GetSceneByName("LevelScene");
             SceneManager.SetActiveScene(levelScene);
 
@@ -84,8 +95,6 @@ public class GameController : MonoBehaviour
             mobSpawnList,
             maxMobEntityCount);
         }
-
-        
     }
 
     void OnApplicationQuit(){

@@ -13,6 +13,7 @@ public abstract class CharacterEntity : Entity
     [Header("character entiy params")]
     [SerializeField]
     protected int health;
+
     [SerializeField]
     protected float speed;
     
@@ -48,6 +49,10 @@ public abstract class CharacterEntity : Entity
 
     public int GetHealth(){
         return health;
+    }
+
+    public float GetSpeed(){
+        return speed;
     }
 
     public int GetFactionID(){

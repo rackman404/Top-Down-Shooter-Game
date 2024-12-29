@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//should be placed right after entity scripts in script execution order
 public class EntityAnimationController: MonoBehaviour
 {
     Animator anim;
@@ -46,21 +48,29 @@ public class EntityAnimationController: MonoBehaviour
         float x = 0, y = 0;
 
         if (rb != null){
-            x = Mathf.Abs(rb.velocity.x);
-            y = Mathf.Abs(rb.velocity.y);
+            x = rb.velocity.x;
+            y = rb.velocity.y;
+
+
 
             animations.previous_clip = animations.current_clip;
 
-            if (rb.velocity.magnitude == 0){
-                animations.current_clip = animations.anim_idle;
-            }
-            else if (x > y){
+
+            if (x < 0){
                 animations.current_clip = animations.anim_left;
+            }
+            else if (x > 0){
+                animations.current_clip = animations.anim_right;
+            }
+            else if (y < 0){
+                animations.current_clip = animations.anim_forward;
+            }
+            else if (y > 0){
+                animations.current_clip = animations.anim_backward;
 
             }
-            else if (x < y){
-                animations.current_clip = animations.anim_forward;
-
+            else if (rb.velocity.magnitude == 0){
+                animations.current_clip = animations.anim_idle;
             }
 
             SwitchAnims();

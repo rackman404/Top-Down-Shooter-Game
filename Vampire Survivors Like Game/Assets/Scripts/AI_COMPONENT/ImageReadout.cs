@@ -11,6 +11,8 @@ using Unity.VisualScripting;
 
 public class ImageReadout : MonoBehaviour{
 
+    private MLNetworkInterface server;
+
     private string jsonAIFilePath;
 
     private int frameCounter;
@@ -31,6 +33,8 @@ public class ImageReadout : MonoBehaviour{
     private const int MaxFRAMESRECORDED = 4;
     private const int PERFRAMERECORDED = 13;
 
+    private float previousVelocity = 0;
+
     struct JSONData{
         public List<int[]> frameByteData;
 
@@ -40,11 +44,23 @@ public class ImageReadout : MonoBehaviour{
 
         public float pScore;
 
-        public JSONData(int hp, float cEDist, float pS){
+        public bool initialized;
+
+        public float memory;
+
+        public float timeAlive;
+
+        public float velocity;
+
+        public JSONData(int hp, float cEDist, float pS, float V){
             frameByteData = new List<int[]>();
             health = hp;    
             cEnemyDist = cEDist; 
             pScore = pS;
+            timeAlive = GameController.Instance.levelInstance.playerInstance.timeAlive;
+            memory = System.GC.GetTotalMemory(false);
+            initialized = true;
+            velocity = V;
         }
     }
 
@@ -58,34 +74,40 @@ public class ImageReadout : MonoBehaviour{
         camOutput.orthographicSize = 50f;
         camOutput.clearFlags = CameraClearFlags.SolidColor;
 
-        jsonData = new JSONData(GameController.Instance.levelInstance.playerInstance.GetHealth(), GetClosestEnemyDist(), GameController.Instance.levelInstance.playerInstance.score);
+        server = gameObject.AddComponent<MLNetworkInterface>();
+        
+        jsonData = new JSONData(GameController.Instance.levelInstance.playerInstance.GetHealth(), GetClosestEnemyDist(), GameController.Instance.levelInstance.playerInstance.score, 0);
     }
 
 
     void FixedUpdate(){
+        if (jsonData.initialized == false){
+            jsonData = new JSONData(GameController.Instance.levelInstance.playerInstance.GetHealth(), GetClosestEnemyDist(), GameController.Instance.levelInstance.playerInstance.score,  Vector2.SqrMagnitude(GameController.Instance.levelInstance.playerInstance.GetVelocity()));
+            //previousVelocity = Vector2.SqrMagnitude(GameController.Instance.levelInstance.playerInstance.GetVelocity());
+        }
+
         if (GameController.Instance.levelInstance.playerInstance != null){
            camOutput.transform.position = GameController.Instance.levelInstance.playerInstance.transform.position;
            camOutput.transform.position += new Vector3(0,0,-1f);
         }
         
-
         if (frameCounter == PERFRAMERECORDED){
             frameCounter = 0;
             RecordFrameData();
             framesRecorded++;
         }
-
-
+        
         frameCounter++;
 
     }
 
 
-    void Update(){
+    void LateUpdate(){
         
         if (shouldResetStruct == true){
             shouldResetStruct = false;
-            jsonData = new JSONData(GameController.Instance.levelInstance.playerInstance.GetHealth(), GetClosestEnemyDist(), GameController.Instance.levelInstance.playerInstance.score);
+            jsonData = new JSONData(GameController.Instance.levelInstance.playerInstance.GetHealth(), GetClosestEnemyDist(), GameController.Instance.levelInstance.playerInstance.score, Vector2.SqrMagnitude(GameController.Instance.levelInstance.playerInstance.GetVelocity()));
+            //previousVelocity = Vector2.SqrMagnitude(GameController.Instance.levelInstance.playerInstance.GetVelocity());
         }
        
 
@@ -127,7 +149,8 @@ public class ImageReadout : MonoBehaviour{
 
     private void ToJSON(){
         threadJSONRunning = true;
-        Debug.Log("thread running");
+        Debug.Log("thread running, V:" + jsonData.velocity);
+        
 
         JsonSerializer serializer = new JsonSerializer();
 
