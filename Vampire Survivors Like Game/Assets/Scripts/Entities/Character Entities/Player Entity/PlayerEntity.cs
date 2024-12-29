@@ -122,9 +122,12 @@ public partial class PlayerEntity : CharacterEntity
     void Attack(){
         GameObject[] mobs = GameObject.FindGameObjectsWithTag("mob");
 
+
+
         if (mobs.Length != 0){
-            GameObject leastDistObj = mobs[0];
+            GameObject leastDistObj = null;
             float leastDist = Int32.MaxValue;
+            
             for (int i = 0; i < mobs.Length; i++){
                 float dist =  Vector3.Distance(mobs[i].transform.position, transform.position);
                 if (dist < leastDist && this.factionID != mobs[i].GetComponent<CharacterEntity>().GetFactionID()){
@@ -133,8 +136,21 @@ public partial class PlayerEntity : CharacterEntity
                 }
             }
 
+            if (leastDistObj == null){
+                for (int i = 0; i < weaponControllers.Length; i++){
+                    weaponControllers[i].Fire(Vector3.zero, null);
+                }   
+            }
+            else{
+                for (int i = 0; i < weaponControllers.Length; i++){
+                    weaponControllers[i].Fire(leastDistObj.transform.position, leastDistObj);
+                }
+            }
+
+        }
+        else{ //default if no mobs on map
             for (int i = 0; i < weaponControllers.Length; i++){
-                weaponControllers[i].Fire(leastDistObj.transform.position, leastDistObj);
+                weaponControllers[i].Fire(Vector3.zero, null);
             }
         }
     }

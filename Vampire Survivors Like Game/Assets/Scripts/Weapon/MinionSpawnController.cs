@@ -74,10 +74,11 @@ public class MinionSpawnController : MonoBehaviour , IWeaponController
         }
 
         if (spawnedMobs.Count < maxSpawnedMobs){
-                    GameObject fx = GameObject.Instantiate(summonFXPrefab, spawnPoint + new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0f,0f,0f));
-        while (fx != null){
-            yield return new WaitForEndOfFrame(); //delay spawning until fx is over
-        }
+            GameObject fx = GameObject.Instantiate(summonFXPrefab, spawnPoint + new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0f,0f,0f));
+            
+            while (fx != null){
+                yield return new WaitForEndOfFrame(); //delay spawning until fx is over
+            }
             
             spawnedMobs.Add(GameObject.Instantiate(mobSpawnTypePrefab, spawnPoint + previousEntityPos, Quaternion.Euler(0f,0f,0f), GameController.Instance.levelInstance.mobContainerObj.transform).GetComponent<MobEntity>().SetParameters(parentFactionID).SetPrefabName(mobSpawnTypePrefab.name).gameObject);
         }

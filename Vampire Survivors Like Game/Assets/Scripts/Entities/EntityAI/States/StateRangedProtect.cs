@@ -62,8 +62,8 @@ public class StateRangedProtect: MonoBehaviour, IAIState
             }
             else{
                 e.waypoint = new Vector3(
-                orbitRadius * Mathf.Sin(currentAngle + orbitDirection * g.GetSpeed() * 20) + target.transform.position.x,
-                orbitRadius * Mathf.Cos(currentAngle + orbitDirection * g.GetSpeed() * 20) + target.transform.position.y);
+                orbitRadius * Mathf.Sin(currentAngle + orbitDirection * g.GetSpeed() * 100) + target.transform.position.x,
+                orbitRadius * Mathf.Cos(currentAngle + orbitDirection * g.GetSpeed() * 100) + target.transform.position.y);
             }
 
 

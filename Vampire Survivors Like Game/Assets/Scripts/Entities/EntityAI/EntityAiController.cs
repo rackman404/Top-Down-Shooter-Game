@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 public enum StateType{
-    RangedProtect, Ranged, Melee
+    RangedProtect, Ranged, MeleeProtect, Melee
 }
 
 

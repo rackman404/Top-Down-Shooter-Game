@@ -16,6 +16,9 @@ public class LevelController : MonoBehaviour
     private int radiusFromPlayerToSpawn;
     private int radiusFromPlayerToSpawnRange;
     private int spawnChance; //per frame
+    private int difficultyRampTime;
+
+    private int rampTickCount;
 
     private GameObject[] mobSpawnList;
 
@@ -32,7 +35,7 @@ public class LevelController : MonoBehaviour
     /// <param name="msList"></param>
     /// <param name="maxMob"></param>
     /// <returns></returns>
-    public LevelController InitializeLevelInstance(int rfp, int rfpr, int sc, GameObject[] msList, int maxMob){
+    public LevelController InitializeLevelInstance(int rfp, int rfpr, int sc, int sRamp, GameObject[] msList, int maxMob){
         InitializePlayer();
 
         //TEMP TERRAIN
@@ -57,6 +60,7 @@ public class LevelController : MonoBehaviour
         radiusFromPlayerToSpawn = rfp;
         radiusFromPlayerToSpawnRange = rfpr;
         spawnChance = sc;
+        difficultyRampTime = sRamp;
         mobSpawnList = msList;
         maxMobEntityCount = maxMob;
 
@@ -71,6 +75,14 @@ public class LevelController : MonoBehaviour
     private void FixedUpdate()
     {
         mobEntityCount = mobContainerObj.transform.childCount;
+
+        rampTickCount += 1;
+        if (rampTickCount == difficultyRampTime){
+            rampTickCount = 0;
+            spawnChance += 1;
+
+            Debug.Log("increased spawn chance to: " + spawnChance + "%");
+        }
 
         if (playerInstance.isDead == false){
             if (mobEntityCount < maxMobEntityCount){
@@ -158,6 +170,8 @@ public class LevelController : MonoBehaviour
 
         mobEntityCount = mobContainerObj.transform.childCount;
     }
+
+
 
 
 

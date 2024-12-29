@@ -76,9 +76,11 @@ public class MobEntity : CharacterEntity
 
         //targeting
         if (mobs.Length != 0){
-            GameObject leastDistObj = mobs[0];
+            GameObject leastDistObj = null;
             float leastDist = System.Int32.MaxValue;
+            
             for (int i = 0; i < mobs.Length; i++){
+
                 float dist =  Vector3.Distance(mobs[i].transform.position, transform.position);
                 if (dist < leastDist && this.factionID != mobs[i].GetComponent<CharacterEntity>().GetFactionID()){
                     leastDist = dist;
@@ -90,7 +92,9 @@ public class MobEntity : CharacterEntity
         }
 
         if (target == null){
-            return;
+            for (int i = 0; i < weaponControllers.Length; i++){
+                weaponControllers[i].Fire(Vector3.zero, null);
+            }
         }
         else{
             for (int i = 0; i < weaponControllers.Length; i++){

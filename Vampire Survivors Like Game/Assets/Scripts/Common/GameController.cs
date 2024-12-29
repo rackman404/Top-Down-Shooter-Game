@@ -48,6 +48,8 @@ public class GameController : MonoBehaviour
     public int radiusFromPlayerToSpawnRange;
     public int spawnChance; //per frame
 
+    public int difficultyRampTime; //ramps up spawn chance by 1% after set time
+
     public GameObject[] mobSpawnList;
 
     public int maxMobEntityCount;
@@ -92,6 +94,7 @@ public class GameController : MonoBehaviour
             radiusFromPlayerToSpawn,
             radiusFromPlayerToSpawnRange,
             spawnChance,
+            difficultyRampTime,
             mobSpawnList,
             maxMobEntityCount);
         }
@@ -169,6 +172,7 @@ public class GameController : MonoBehaviour
                         radiusFromPlayerToSpawn,
                         radiusFromPlayerToSpawnRange,
                         spawnChance,
+                        difficultyRampTime,
                         mobSpawnList,
                         maxMobEntityCount);
                     }
@@ -180,6 +184,7 @@ public class GameController : MonoBehaviour
             radiusFromPlayerToSpawn,
             radiusFromPlayerToSpawnRange,
             spawnChance,
+            difficultyRampTime,
             mobSpawnList,
             maxMobEntityCount);
 
