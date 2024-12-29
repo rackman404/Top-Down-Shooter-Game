@@ -19,9 +19,12 @@ public class WeaponSoundController : MonoBehaviour
         weaponTriggerSFX = Resources.Load<AudioClip>("Sound/270396_spell_01");
     }
 
-    public void FireTriggerSFX()
+    public void FireTriggerSFX() //bug occurs with null ref error if the check condition for weapon audio source exists is not on
     {
-        weaponAudioSource.clip = weaponTriggerSFX;
-        weaponAudioSource.Play();
+        if (weaponAudioSource != null){
+            weaponAudioSource.clip = weaponTriggerSFX;
+            weaponAudioSource.Play();
+        }
+
     }
 }

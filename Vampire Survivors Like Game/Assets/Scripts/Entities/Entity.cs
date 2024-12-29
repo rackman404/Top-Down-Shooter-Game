@@ -64,4 +64,10 @@ public abstract class Entity : MonoBehaviour
     public Vector2 GetVelocity(){
         return rb.velocity;
     }
+
+    public void Start(){
+        
+        Init();
+        SpriteInit();
+    }
 }

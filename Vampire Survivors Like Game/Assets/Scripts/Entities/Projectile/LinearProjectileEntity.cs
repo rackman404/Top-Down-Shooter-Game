@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LinearProjectileEntity : ProjectileEntity
 {
-    void Start(){
-        Init();
+    void Awake(){
+
     }
 
     void FixedUpdate(){

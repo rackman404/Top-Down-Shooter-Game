@@ -8,8 +8,7 @@ using System.Linq;
 public class MobEntity : CharacterEntity
 {
 
-    //direct where mob should move
-    public Vector3 waypoint;
+
 
     private GameObject target = null;
 
@@ -24,16 +23,32 @@ public class MobEntity : CharacterEntity
             gameObject.GetComponentInChildren<SpriteRenderer>().color = redShifted;
         }
 
-        entityAI = gameObject.AddComponent<EntityAiController>().Init(this, weaponControllers);
-
         return this;
+    }
+
+    protected override void Init()
+    {
+        waypoint = transform.position; //set initial position point at current pos
+        movementController = gameObject.AddComponent<CharacterMovementController>();
+
+        weaponControllers = new IWeaponController[weaponObjs.Length];
+        //weapon instantiate
+        for (int i = 0; i < weaponObjs.Length; i++){
+            weaponControllers[i] = GameObject.Instantiate(weaponObjs[i], transform.position, Quaternion.Euler(0,0,0), transform).GetComponent<IWeaponController>().Init(this);
+        }
+        
+        entityAI = gameObject.AddComponent<EntityAiController>().Init(this, weaponControllers);
+        
+ 
+
+
     }
 
     // Start is called before the first frame update
     void Awake()
     {
-        waypoint = transform.position; //set initial position point at current pos
-        Init();
+
+        //Init();
         
     }
 
@@ -60,6 +75,8 @@ public class MobEntity : CharacterEntity
         health -= dmg;
         if (health <= 0){
             GameController.Instance.levelInstance.playerInstance.AddScore(5);
+        
+
             Destroy(gameObject);
         }
     }

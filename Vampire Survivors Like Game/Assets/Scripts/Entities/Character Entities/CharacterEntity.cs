@@ -16,6 +16,9 @@ public abstract class CharacterEntity : Entity
 
     [SerializeField]
     protected float speed;
+
+    //direct where mob should move
+    public Vector3 waypoint;
     
     protected int factionID; //where faction: 1 = player, 2 = enemy
 
@@ -31,19 +34,7 @@ public abstract class CharacterEntity : Entity
     /// </summary>
     protected CharacterMovementController movementController;
 
-    protected override void Init()
-    {
-        movementController = gameObject.AddComponent<CharacterMovementController>();
 
-        weaponControllers = new IWeaponController[weaponObjs.Length];
-        //weapon instantiate
-        for (int i = 0; i < weaponObjs.Length; i++){
-            weaponControllers[i] = GameObject.Instantiate(weaponObjs[i], transform.position, Quaternion.Euler(0,0,0), transform).GetComponent<IWeaponController>().Init(this);
-        }
-        SpriteInit();
-
-
-    }
 
     public abstract void TakeDamage(int dmg);
 

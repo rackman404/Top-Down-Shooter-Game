@@ -42,8 +42,7 @@ public abstract class ProjectileEntity : Entity
     protected override void Init(){
         GameController.Instance.levelInstance.AddProjectile(gameObject); 
         spriteObj = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
-        SpriteInit();
-        GetComponent<BoxCollider2D>().isTrigger = true;
+
 
         range = speed * lifetime;
 

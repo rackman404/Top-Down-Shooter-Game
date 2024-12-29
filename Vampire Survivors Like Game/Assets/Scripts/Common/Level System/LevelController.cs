@@ -15,7 +15,7 @@ public class LevelController : MonoBehaviour
 
     private int radiusFromPlayerToSpawn;
     private int radiusFromPlayerToSpawnRange;
-    private int spawnChance; //per frame
+    public int spawnChance {get; private set;} //per frame
     private int difficultyRampTime;
 
     private int rampTickCount;

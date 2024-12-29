@@ -94,4 +94,9 @@ public class MinionSpawnController : MonoBehaviour , IWeaponController
         yield return new WaitForSeconds(weaponCooldown); //fire rate
         canSpawn = true;
     }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
 }

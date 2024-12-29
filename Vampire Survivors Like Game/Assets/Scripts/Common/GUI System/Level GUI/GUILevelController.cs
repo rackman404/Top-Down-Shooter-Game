@@ -19,6 +19,7 @@ public class GUILevelController : MonoBehaviour
     private TMP_Text playerHealthDisplay;
     private TMP_Text playerExpDisplay;
     private TMP_Text playerTimeAliveDisplay;
+    private TMP_Text currentDifficultyDisplay;
 
     private Texture2D miniMapCompoment;
     private MiniMapController miniMapScript;
@@ -51,7 +52,10 @@ public class GUILevelController : MonoBehaviour
                     break;    
                 case "timealive_counter":
                     playerTimeAliveDisplay = temp[i];
-                    break;                    
+                    break;     
+                case "current_difficulty_counter":
+                    currentDifficultyDisplay = temp[i];
+                    break;               
             }
         }
     }
@@ -68,9 +72,11 @@ public class GUILevelController : MonoBehaviour
             }
 
             mobCountDisplay.text = "Mob Count - " + lvlInstance.mobContainerObj.transform.childCount;
+            currentDifficultyDisplay.text = "Current Difficulty: " + lvlInstance.spawnChance +  "%";
             playerScoreCountDisplay.text = "Score - " + lvlInstance.playerInstance.score;
             playerTimeAliveDisplay.text = "Time Alive - " + (int)lvlInstance.playerInstance.timeAlive + " Sec";
             playerHealthDisplay.text = "Health: " + lvlInstance.playerInstance.GetHealth();
+            
 
             IWeaponController[] weapons = lvlInstance.playerInstance.GetComponentsInChildren<IWeaponController>();
 

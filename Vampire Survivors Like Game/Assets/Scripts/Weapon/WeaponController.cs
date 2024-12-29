@@ -60,7 +60,7 @@ public class WeaponController : MonoBehaviour, IWeaponController
         }
         else if (canAttack == true){
             if (projectilePrefab.GetComponent<ProjectileEntity>().speed * projectilePrefab.GetComponent<ProjectileEntity>().lifetime >= Vector3.Distance(targetPos, parentEntity.transform.position)){
-                Debug.Log("firing at " + targetObj.name);
+                //Debug.Log("firing at " + targetObj.name);
                 
                 StartCoroutine(AttackCycle());
 
@@ -77,6 +77,11 @@ public class WeaponController : MonoBehaviour, IWeaponController
         canAttack = false;
         yield return new WaitForSeconds(weaponCooldown); //fire rate
         canAttack = true;
+    }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
     }
 
 

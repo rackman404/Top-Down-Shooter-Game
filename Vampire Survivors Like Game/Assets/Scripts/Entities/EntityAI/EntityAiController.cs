@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 public enum StateType{
-    RangedProtect, Ranged, MeleeProtect, Melee
+    RangedProtect, Ranged, MeleeProtect, Melee, Idle, AIDisabled
 }
 
 
@@ -36,14 +36,12 @@ public class EntityAiController : MonoBehaviour
         return this;
     }
 
-
-
-
     private void InitialState(){
 
         //only first weapon is checked for ai state determination
 
-        switch(attachedWeapons[0].type){
+        if (attachedWeapons.Length != 0){
+            switch(attachedWeapons[0].type){
             case WeaponType.Projectile:
                 if (ally == true){
                     currentState = gameObject.AddComponent<StateRangedProtect>();
@@ -55,14 +53,18 @@ public class EntityAiController : MonoBehaviour
             default:
                 Debug.LogWarning("weapon type not defined");
                 break;
-
+            }
+        }   
+        else{
+            Debug.LogWarning("No weapon assigned to mob! Defaulting to idle ai");
+            
         }
+        
     }
 
     public void SwitchState(StateType type){
 
     }
-
 
     // Update is called once per frame
     void Update()

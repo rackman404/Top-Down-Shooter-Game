@@ -56,7 +56,6 @@ public partial class PlayerEntity : CharacterEntity
         internalName = "player";
         factionID = 1;
 
-        Init();
     }
 
     void Update(){
@@ -64,6 +63,21 @@ public partial class PlayerEntity : CharacterEntity
         
     }
 
+    protected override void Init()
+    {
+        waypoint = transform.position; //set initial position point at current pos
+        movementController = gameObject.AddComponent<CharacterMovementController>();
+
+        weaponControllers = new IWeaponController[weaponObjs.Length];
+        //weapon instantiate
+        for (int i = 0; i < weaponObjs.Length; i++){
+            weaponControllers[i] = GameObject.Instantiate(weaponObjs[i], transform.position, Quaternion.Euler(0,0,0), transform).GetComponent<IWeaponController>().Init(this);
+        }
+        
+       
+
+
+    }
 
     // Update is called once per frame
     void FixedUpdate()

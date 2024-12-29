@@ -19,6 +19,8 @@ public interface IWeaponController
 
     public IWeaponController Init(CharacterEntity parentE);
 
+    public GameObject GetGameObject();
+
     
 
 }
