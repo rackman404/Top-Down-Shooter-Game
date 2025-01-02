@@ -121,16 +121,21 @@ public partial class PlayerEntity : CharacterEntity
         health -= dmg;
 
         if (health <= 0 && isDead == false){
-            health = 0;
-            isDead = true;
-
-            rb.velocity = Vector2.zero;
-
-            SoundManager.Instance.BeginGameOverSFX();
-
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            Destroy(spriteObj.gameObject);
+           OnDeath();
         }
+    }
+
+    public override void OnDeath()
+    {
+        health = 0;
+        isDead = true;
+
+        rb.velocity = Vector2.zero;
+
+        SoundManager.Instance.BeginGameOverSFX();
+
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        Destroy(spriteObj.gameObject);
     }
 
     void Attack(){

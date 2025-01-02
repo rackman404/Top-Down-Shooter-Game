@@ -5,6 +5,8 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
 
+    public const int TICKSPERSECOND = 50;
+
     public PlayerEntity playerInstance {get; private set;}
     public GameObject projContainerObj;
     public GameObject mobContainerObj;
@@ -12,19 +14,30 @@ public class LevelController : MonoBehaviour
 
     public LevelData lvlData;
 
-
     private int radiusFromPlayerToSpawn;
     private int radiusFromPlayerToSpawnRange;
     public int spawnChance {get; private set;} //per frame
+
+    public int waveCount {get; private set;}
+    private int timeBetweenWaves;
+
     private int difficultyRampTime;
 
     private int rampTickCount;
+    private int waveBreakTickCount;
+
 
     private GameObject[] mobSpawnList;
 
     private int maxMobEntityCount;
 
     private int mobEntityCount = 0;
+
+    private bool waveInProgress = false;
+
+    private const int DIFFICULTYINCREASEPERWAVE = 5;
+
+    private int maxWaveDifficultyThreshold = DIFFICULTYINCREASEPERWAVE; //initial difficulty
 
     /// <summary>
     /// Constructor.
@@ -35,7 +48,7 @@ public class LevelController : MonoBehaviour
     /// <param name="msList"></param>
     /// <param name="maxMob"></param>
     /// <returns></returns>
-    public LevelController InitializeLevelInstance(int rfp, int rfpr, int sc, int sRamp, GameObject[] msList, int maxMob){
+    public LevelController InitializeLevelInstance(int rfp, int rfpr, int sc, int sRamp, GameObject[] msList, int maxMob, int timeBetweenW){
         InitializePlayer();
 
         //TEMP TERRAIN
@@ -60,9 +73,11 @@ public class LevelController : MonoBehaviour
         radiusFromPlayerToSpawn = rfp;
         radiusFromPlayerToSpawnRange = rfpr;
         spawnChance = sc;
-        difficultyRampTime = sRamp;
+        difficultyRampTime = sRamp * TICKSPERSECOND;
         mobSpawnList = msList;
         maxMobEntityCount = maxMob;
+        timeBetweenWaves = timeBetweenW * TICKSPERSECOND;
+        
 
         return this;
     }
@@ -72,16 +87,34 @@ public class LevelController : MonoBehaviour
         playerInstance = tempObj.GetComponent<PlayerEntity>();
     }
 
-    private void FixedUpdate()
-    {
+    private void SpawnLogic(){
+
+
         mobEntityCount = mobContainerObj.transform.childCount;
 
+        //time between waves
+        if (waveInProgress == false && waveBreakTickCount != timeBetweenWaves){
+            waveBreakTickCount += 1;
+            return;
+        }
+        else if (waveInProgress == false){
+            waveInProgress = true;
+            waveBreakTickCount = 0;
+            waveCount += 1;
+        }
+        
+        //wave exit condition
+        if (spawnChance == (maxWaveDifficultyThreshold + 1)){ // + 1 so that a wave ends on a even number
+            waveInProgress = false;
+            spawnChance = 1;
+            maxWaveDifficultyThreshold += DIFFICULTYINCREASEPERWAVE;
+        }
+
+        //increasing difficulty per wave
         rampTickCount += 1;
         if (rampTickCount == difficultyRampTime){
             rampTickCount = 0;
             spawnChance += 1;
-
-            Debug.Log("increased spawn chance to: " + spawnChance + "%");
         }
 
         if (playerInstance.isDead == false){
@@ -95,6 +128,11 @@ public class LevelController : MonoBehaviour
                 } 
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        SpawnLogic();
     }
 
     /// <summary>

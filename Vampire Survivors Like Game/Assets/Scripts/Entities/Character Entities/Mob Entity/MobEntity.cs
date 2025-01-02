@@ -76,9 +76,17 @@ public class MobEntity : CharacterEntity
         if (health <= 0){
             GameController.Instance.levelInstance.playerInstance.AddScore(5);
         
-
-            Destroy(gameObject);
+            OnDeath();
         }
+    }
+
+    public override void OnDeath(){
+        if (Random.Range(1,101) <= GameController.Instance.entityDropChance){
+            Debug.Log("dropped item");
+            GameObject.Instantiate(GameController.Instance.entityDropTable[0], transform.position, transform.rotation);
+        }
+        
+        Destroy(gameObject);
     }
 
     /// <summary>

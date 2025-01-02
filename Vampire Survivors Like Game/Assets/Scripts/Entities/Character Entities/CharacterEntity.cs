@@ -38,6 +38,8 @@ public abstract class CharacterEntity : Entity
 
     public abstract void TakeDamage(int dmg);
 
+    public abstract void OnDeath();
+
     public int GetHealth(){
         return health;
     }

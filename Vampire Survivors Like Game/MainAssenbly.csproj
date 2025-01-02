@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\Common\Level System\LevelController.cs" />
     <Compile Include="Assets\Scripts\Entities\EntityAI\States\StateRangedProtect.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponController.cs" />
+    <Compile Include="Assets\Scripts\Terrain\TerrainManager.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\CharacterMovementController.cs" />
     <Compile Include="Assets\Scripts\Entities\EntityAI\States\IAIState.cs" />
     <Compile Include="Assets\Scripts\Entities\EntityAnimationController.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Assets\Scripts\Entities\Character Entities\Mob Entity\MobEntity.cs" />
     <Compile Include="Assets\Scripts\Common\Level System\LevelData.cs" />
     <Compile Include="Assets\Scripts\Common\GUI System\Level GUI\MiniMapController.cs" />
+    <Compile Include="Assets\Scripts\Terrain\TerrainData.cs" />
     <Compile Include="Assets\Scripts\Entities\Item\ItemEntity.cs" />
     <Compile Include="Assets\Scripts\AI_COMPONENT\MLNetworkInterface.cs" />
     <Compile Include="Assets\Scripts\Common\Save Load System\ISaveLoadHandler.cs" />

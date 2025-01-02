@@ -47,12 +47,12 @@ public class GameController : MonoBehaviour
     public int radiusFromPlayerToSpawn;
     public int radiusFromPlayerToSpawnRange;
     public int spawnChance; //per frame
-
     public int difficultyRampTime; //ramps up spawn chance by 1% after set time
-
     public GameObject[] mobSpawnList;
-
     public int maxMobEntityCount;
+    public int timeBetweenWaves;
+    public GameObject[] entityDropTable;
+    public int entityDropChance;
 
 
     void Awake()
@@ -96,7 +96,8 @@ public class GameController : MonoBehaviour
             spawnChance,
             difficultyRampTime,
             mobSpawnList,
-            maxMobEntityCount);
+            maxMobEntityCount,
+            timeBetweenWaves);
         }
     }
 
@@ -174,7 +175,8 @@ public class GameController : MonoBehaviour
                         spawnChance,
                         difficultyRampTime,
                         mobSpawnList,
-                        maxMobEntityCount);
+                        maxMobEntityCount,
+                        timeBetweenWaves);
                     }
                 }
             }
@@ -186,7 +188,8 @@ public class GameController : MonoBehaviour
             spawnChance,
             difficultyRampTime,
             mobSpawnList,
-            maxMobEntityCount);
+            maxMobEntityCount,
+            timeBetweenWaves);
 
             //unpause and set game as valid
         }

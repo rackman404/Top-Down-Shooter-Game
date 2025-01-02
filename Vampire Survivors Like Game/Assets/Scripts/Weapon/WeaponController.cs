@@ -13,7 +13,8 @@ public class WeaponController : MonoBehaviour, IWeaponController
 
     public GameObject projectilePrefab;
 
-    public float weaponCooldown;
+    public int weaponCooldown;
+    private int weaponCooldownTimer;
 
     private WeaponSoundController soundController;
     
@@ -36,6 +37,7 @@ public class WeaponController : MonoBehaviour, IWeaponController
     /// </summary>
     public IWeaponController Init(CharacterEntity parentE){
         type = WeaponType.Projectile;
+        weaponCooldown *= LevelController.TICKSPERSECOND;
 
         parentEntity = parentE;
         parentFactionID = parentEntity.GetFactionID();
@@ -47,7 +49,19 @@ public class WeaponController : MonoBehaviour, IWeaponController
         if (parentFactionID == 0){
             parentFactionID = parentEntity.GetFactionID();
         }
+
+        
+        if (canAttack == false){
+            weaponCooldownTimer += 1;
+
+            if (weaponCooldownTimer == weaponCooldown){
+                weaponCooldownTimer = 0;
+                canAttack = true;
+            }
+        }
+
     }
+
 
     /// <summary>
     /// Fire projectiles at target vector position given. Will not fire if on cooldown or projectiles are out of range.
@@ -55,21 +69,23 @@ public class WeaponController : MonoBehaviour, IWeaponController
     /// <param name="targetPos"></param>
     public void Fire(Vector3 targetPos, GameObject targetObj){
         if (targetObj == null || targetPos == Vector3.zero && canAttack == true){
-            StartCoroutine(AttackCycle());
-
+            //StartCoroutine(AttackCycle());
+            canAttack = false;
         }
         else if (canAttack == true){
             if (projectilePrefab.GetComponent<ProjectileEntity>().speed * projectilePrefab.GetComponent<ProjectileEntity>().lifetime >= Vector3.Distance(targetPos, parentEntity.transform.position)){
                 //Debug.Log("firing at " + targetObj.name);
                 
-                StartCoroutine(AttackCycle());
+                //StartCoroutine(AttackCycle());
 
                 soundController.FireTriggerSFX();
                 Instantiate(projectilePrefab, transform.position, transform.rotation).GetComponent<ProjectileEntity>().SetParameters(targetPos - parentEntity.transform.position, parentEntity.tag, targetObj, projectilePrefab.name, parentFactionID);
+                canAttack = false;
             }
         }
     }
 
+    /*
     /// <summary>
     /// Weapons cooldown coroutine.
     /// </summary>
@@ -78,6 +94,7 @@ public class WeaponController : MonoBehaviour, IWeaponController
         yield return new WaitForSeconds(weaponCooldown); //fire rate
         canAttack = true;
     }
+    */
 
     public GameObject GetGameObject()
     {

@@ -72,10 +72,11 @@ public class GUILevelController : MonoBehaviour
             }
 
             mobCountDisplay.text = "Mob Count - " + lvlInstance.mobContainerObj.transform.childCount;
-            currentDifficultyDisplay.text = "Current Difficulty: " + lvlInstance.spawnChance +  "%";
+            currentDifficultyDisplay.text = "Current Difficulty: " + (lvlInstance.spawnChance - 1) +  "%";
             playerScoreCountDisplay.text = "Score - " + lvlInstance.playerInstance.score;
             playerTimeAliveDisplay.text = "Time Alive - " + (int)lvlInstance.playerInstance.timeAlive + " Sec";
             playerHealthDisplay.text = "Health: " + lvlInstance.playerInstance.GetHealth();
+            waveCountDisplay.text = "Wave: " + lvlInstance.waveCount;
             
 
             IWeaponController[] weapons = lvlInstance.playerInstance.GetComponentsInChildren<IWeaponController>();
