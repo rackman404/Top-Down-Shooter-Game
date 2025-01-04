@@ -44,7 +44,7 @@ public class TerrainManager : MonoBehaviour
     private List<List<int>> intArray = new List<List<int>>();
 
     //should be 3/4 of the chunk size
-    private readonly int CHUNKCHECKRADIUS = 80;
+    private readonly int CHUNKCHECKRADIUS = 100;
 
     
     private const int TICKRUN = 50;
@@ -52,12 +52,7 @@ public class TerrainManager : MonoBehaviour
 
     void Start()
     {
-
-        //center grid on 0,0
-        //grid.transform.position = new Vector3 (levelTerrainData.chunkSize/2 * grid.cellSize.x, levelTerrainData.chunkSize/2 * grid.cellSize.y);
-
-        //initial chunk load
-        //LoadChunk(0,0);
+        ChunkLoadCheck();
     }
 
 
@@ -71,10 +66,62 @@ public class TerrainManager : MonoBehaviour
         int chunkCenterY = chunkY * levelTerrainData.chunkSize;
 
         Vector3Int vec = Vector3Int.zero;
+        Vector3Int[] tileCoordinates = new Vector3Int[levelTerrainData.chunkSize * levelTerrainData.chunkSize];
+        TileBase[] tiles = new TileBase[levelTerrainData.chunkSize * levelTerrainData.chunkSize];
+        int counter = 0;
 
         NoiseGeneration();
+        void NoiseGeneration(){
+            switch (noiseGenSetting){
+                case NoiseGenerationType.None:
+                    for (int i = -levelTerrainData.chunkSize/2 + chunkCenterX; i < levelTerrainData.chunkSize/2 + chunkCenterX; i++){
+                        for (int j = -levelTerrainData.chunkSize/2 + chunkCenterY; j < levelTerrainData.chunkSize/2 + chunkCenterY; j++){
+
+                            vec.x = i;
+                            vec.y = j;
+                            if (tileSet.GetTile(vec) == null){
+                                tileCoordinates[counter] = new Vector3Int(vec.x, vec.y);
+                                tiles[counter] = levelTerrainData.tiles[0];
+                                counter++;
+                            }
+                        }
+                    }
+
+                    
+                    break;
+                case NoiseGenerationType.Voronoi:
 
 
+                    break;
+                case NoiseGenerationType.CompleteRandom:
+
+                    int tileCount = levelTerrainData.tiles.Length;
+
+                    for (int i = -levelTerrainData.chunkSize/2 + chunkCenterX; i < levelTerrainData.chunkSize/2 + chunkCenterX; i++){
+                        for (int j = -levelTerrainData.chunkSize/2 + chunkCenterY; j < levelTerrainData.chunkSize/2 + chunkCenterY; j++){
+                            vec.x = i;
+                            vec.y = j;
+                            
+                            if (tileSet.GetTile(vec) == null){
+                                tileCoordinates[counter] = new Vector3Int(vec.x, vec.y);
+                                tiles[counter] = levelTerrainData.tiles[rng.Next(0,tileCount)];
+                                counter++;
+                            }
+                        }
+                    }
+                    
+                    //loadedChunkCoordinates.Add(new Vector3Int(chunkX, chunkY));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        tileSet.SetTiles(tileCoordinates, tiles);
+
+
+        /* inefficent
+        NoiseGeneration();
         void NoiseGeneration(){
             switch (noiseGenSetting){
                 case NoiseGenerationType.None:
@@ -92,17 +139,10 @@ public class TerrainManager : MonoBehaviour
                     
                     break;
                 case NoiseGenerationType.Voronoi:
-                    /*
-                    Choose random point
-                    For every point:
-                    */
+
 
                     break;
                 case NoiseGenerationType.CompleteRandom:
-                    /*
-                    Pure randomness, no structure.
-                    Picks a random tile from the tileset and places it.
-                    */
 
                     int tileCount = levelTerrainData.tiles.Length;
 
@@ -123,6 +163,7 @@ public class TerrainManager : MonoBehaviour
                     break;
             }
         }
+        */
 
     }
 
