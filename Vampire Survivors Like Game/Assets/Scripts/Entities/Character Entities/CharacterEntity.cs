@@ -34,8 +34,6 @@ public abstract class CharacterEntity : Entity
     /// </summary>
     protected CharacterMovementController movementController;
 
-
-
     public abstract void TakeDamage(int dmg);
 
     public abstract void OnDeath();

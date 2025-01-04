@@ -16,4 +16,5 @@ MonoBehaviour:
   chunkSize: 100
   tiles:
   - {fileID: 11400000, guid: cc02983db1d7799468526d808606dec0, type: 2}
-  tileSpawnChance: 00000000
+  - {fileID: 11400000, guid: 315485e9608817a47a0ac43a93aac3dc, type: 2}
+  tileSpawnChance: 0000000000000000

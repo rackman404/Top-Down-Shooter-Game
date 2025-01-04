@@ -6,8 +6,13 @@ using UnityEngine;
 
 
 
-public partial class PlayerEntity : CharacterEntity
+public class PlayerEntity : CharacterEntity
 {
+
+
+    private Camera playerCam;
+    private const int SCROLLRATE = 5;
+
 
     #region DEBUG STUFF
 
@@ -56,11 +61,15 @@ public partial class PlayerEntity : CharacterEntity
         internalName = "player";
         factionID = 1;
 
+        playerCam = Camera.main;
     }
 
     void Update(){
         timeAlive += Time.deltaTime;
         
+        if (isDead == false){
+            CameraPan();
+        }
     }
 
     protected override void Init()
@@ -83,7 +92,13 @@ public partial class PlayerEntity : CharacterEntity
     void FixedUpdate()
     {   
         if (isDead == false){
-            if (GameController.Instance.DEBUGMODE == false){
+            Movement();
+            Attack();
+        }
+    }
+
+    private void Movement(){
+        if (GameController.Instance.DEBUGMODE == false){
 
                     if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")){
                     Vector3 movementVector = Vector2.zero;
@@ -109,9 +124,19 @@ public partial class PlayerEntity : CharacterEntity
             }
             else{
                 movementController.MoveTo(previousInput, rb);       
-            }
+        }
+    }
 
-            Attack();
+    private void CameraPan(){
+        if (Input.mouseScrollDelta.y == 0){
+            return;
+        }
+        else if (Mathf.Sign(Input.mouseScrollDelta.y) == 1){
+            playerCam.orthographicSize = Mathf.Clamp(playerCam.orthographicSize - SCROLLRATE, 50, 500);
+        }
+        else{
+
+            playerCam.orthographicSize = Mathf.Clamp(playerCam.orthographicSize + SCROLLRATE, 50, 500);
         }
     }
     
