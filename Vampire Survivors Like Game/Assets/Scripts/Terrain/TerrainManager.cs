@@ -11,7 +11,7 @@ public enum TerrainType{
 }
 
 public enum NoiseGenerationType{
-    None, CompleteRandom, Voronoi
+    None, CompleteRandom, Perlin
 }
 
 public class TerrainManager : MonoBehaviour
@@ -19,7 +19,7 @@ public class TerrainManager : MonoBehaviour
     public NoiseGenerationType noiseGenSetting;
     private int seedID = 0;
 
-    private System.Random rng = new System.Random();
+    private System.Random rng;
 
     public Tilemap tileSet;
     public Grid grid;
@@ -45,6 +45,7 @@ public class TerrainManager : MonoBehaviour
 
     //should be 3/4 of the chunk size
     private readonly int CHUNKCHECKRADIUS = 100;
+    private bool chunkLoadCoroutineActive = false;
 
     
     private const int TICKRUN = 50;
@@ -52,6 +53,7 @@ public class TerrainManager : MonoBehaviour
 
     void Start()
     {
+        rng = new System.Random(seedID);
         ChunkLoadCheck();
     }
 
@@ -66,10 +68,97 @@ public class TerrainManager : MonoBehaviour
         int chunkCenterY = chunkY * levelTerrainData.chunkSize;
 
         Vector3Int vec = Vector3Int.zero;
-        Vector3Int[] tileCoordinates = new Vector3Int[levelTerrainData.chunkSize * levelTerrainData.chunkSize];
-        TileBase[] tiles = new TileBase[levelTerrainData.chunkSize * levelTerrainData.chunkSize];
+
+        //only generate new strips at a time
+        //Vector3Int[] tileCoordinates = new Vector3Int[levelTerrainData.chunkSize * levelTerrainData.chunkSize];
+        //TileBase[] tiles = new TileBase[levelTerrainData.chunkSize * levelTerrainData.chunkSize];
+        Vector3Int[] tileCoordinates = new Vector3Int[levelTerrainData.chunkSize];
+        TileBase[] tiles = new TileBase[levelTerrainData.chunkSize];
+
+
         int counter = 0;
 
+
+
+
+        StartCoroutine(NoiseGeneration());
+        
+
+        IEnumerator NoiseGeneration() //attempt to generate a single strip of terrain from each chunk per frame to spread load out
+        {
+            switch (noiseGenSetting){
+                case NoiseGenerationType.None:
+                    for (int i = -levelTerrainData.chunkSize/2 + chunkCenterX; i < levelTerrainData.chunkSize/2 + chunkCenterX; i++){
+                        tileCoordinates = new Vector3Int[levelTerrainData.chunkSize];
+                        tiles = new TileBase[levelTerrainData.chunkSize];
+                        counter = 0;
+                        for (int j = -levelTerrainData.chunkSize/2 + chunkCenterY; j < levelTerrainData.chunkSize/2 + chunkCenterY; j++){
+                            vec.x = i;
+                            vec.y = j;
+                            if (tileSet.GetTile(vec) == null){
+                                tileCoordinates[counter] = new Vector3Int(vec.x, vec.y);
+                                tiles[counter] = levelTerrainData.tiles[0];
+                                counter++;
+                            }
+                        }
+                        tileSet.SetTiles(tileCoordinates, tiles);
+                        yield return new WaitForEndOfFrame();
+                    } 
+                    
+                    break;
+                case NoiseGenerationType.Perlin:
+                    for (int i = -levelTerrainData.chunkSize/2 + chunkCenterX; i < levelTerrainData.chunkSize/2 + chunkCenterX; i++){
+                        tileCoordinates = new Vector3Int[levelTerrainData.chunkSize];
+                        tiles = new TileBase[levelTerrainData.chunkSize];
+                        counter = 0;
+                        for (int j = -levelTerrainData.chunkSize/2 + chunkCenterY; j < levelTerrainData.chunkSize/2 + chunkCenterY; j++){
+                            vec.x = i;
+                            vec.y = j;
+                            if (tileSet.GetTile(vec) == null){
+                                tileCoordinates[counter] = new Vector3Int(vec.x, vec.y);
+                                float value = Mathf.PerlinNoise(100000.0f + (float)i/10,100000.0f + (float)j/10);
+                                if (value > 0.5){
+                                    tiles[counter] = levelTerrainData.tiles[0];
+                                }
+                                else{
+                                    tiles[counter] = levelTerrainData.tiles[1];
+                                }
+                                counter++;
+                            }
+                        }
+                        tileSet.SetTiles(tileCoordinates, tiles);
+                        yield return new WaitForEndOfFrame();
+                    } 
+
+                    break;
+                case NoiseGenerationType.CompleteRandom:
+                    for (int i = -levelTerrainData.chunkSize/2 + chunkCenterX; i < levelTerrainData.chunkSize/2 + chunkCenterX; i++){
+                        tileCoordinates = new Vector3Int[levelTerrainData.chunkSize];
+                        tiles = new TileBase[levelTerrainData.chunkSize];
+                        counter = 0;
+                        for (int j = -levelTerrainData.chunkSize/2 + chunkCenterY; j < levelTerrainData.chunkSize/2 + chunkCenterY; j++){
+                            vec.x = i;
+                            vec.y = j;
+                            
+                            if (tileSet.GetTile(vec) == null){
+                                int tileCount = levelTerrainData.tiles.Length;
+                                tileCoordinates[counter] = new Vector3Int(vec.x, vec.y);
+                                tiles[counter] = levelTerrainData.tiles[rng.Next(0,tileCount)];
+                                counter++;
+                            }
+                        }
+                        tileSet.SetTiles(tileCoordinates, tiles);
+                        yield return new WaitForEndOfFrame();
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+
+        /* without spreading generation across multiple frames
         NoiseGeneration();
         void NoiseGeneration(){
             switch (noiseGenSetting){
@@ -85,12 +174,27 @@ public class TerrainManager : MonoBehaviour
                                 counter++;
                             }
                         }
-                    }
-
-                    
+                    } 
                     break;
-                case NoiseGenerationType.Voronoi:
+                case NoiseGenerationType.Perlin:
+                    for (int i = -levelTerrainData.chunkSize/2 + chunkCenterX; i < levelTerrainData.chunkSize/2 + chunkCenterX; i++){
+                        for (int j = -levelTerrainData.chunkSize/2 + chunkCenterY; j < levelTerrainData.chunkSize/2 + chunkCenterY; j++){
 
+                            vec.x = i;
+                            vec.y = j;
+                            if (tileSet.GetTile(vec) == null){
+                                tileCoordinates[counter] = new Vector3Int(vec.x, vec.y);
+                                float value = Mathf.PerlinNoise(100000.0f + (float)i/10,100000.0f + (float)j/10);
+                                if (value > 0.5){
+                                    tiles[counter] = levelTerrainData.tiles[0];
+                                }
+                                else{
+                                    tiles[counter] = levelTerrainData.tiles[1];
+                                }
+                                counter++;
+                            }
+                        }
+                    } 
 
                     break;
                 case NoiseGenerationType.CompleteRandom:
@@ -109,55 +213,6 @@ public class TerrainManager : MonoBehaviour
                             }
                         }
                     }
-                    
-                    //loadedChunkCoordinates.Add(new Vector3Int(chunkX, chunkY));
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        tileSet.SetTiles(tileCoordinates, tiles);
-
-
-        /* inefficent
-        NoiseGeneration();
-        void NoiseGeneration(){
-            switch (noiseGenSetting){
-                case NoiseGenerationType.None:
-                    for (int i = -levelTerrainData.chunkSize/2 + chunkCenterX; i < levelTerrainData.chunkSize/2 + chunkCenterX; i++){
-                        for (int j = -levelTerrainData.chunkSize/2 + chunkCenterY; j < levelTerrainData.chunkSize/2 + chunkCenterY; j++){
-
-                            vec.x = i;
-                            vec.y = j;
-                            if (tileSet.GetTile(vec) == null){
-                                tileSet.SetTile(vec, levelTerrainData.tiles[0]);
-                            }
-                        }
-                    }
-
-                    
-                    break;
-                case NoiseGenerationType.Voronoi:
-
-
-                    break;
-                case NoiseGenerationType.CompleteRandom:
-
-                    int tileCount = levelTerrainData.tiles.Length;
-
-                    for (int i = -levelTerrainData.chunkSize/2 + chunkCenterX; i < levelTerrainData.chunkSize/2 + chunkCenterX; i++){
-                        for (int j = -levelTerrainData.chunkSize/2 + chunkCenterY; j < levelTerrainData.chunkSize/2 + chunkCenterY; j++){
-                            vec.x = i;
-                            vec.y = j;
-                            
-                            if (tileSet.GetTile(vec) == null){
-                                tileSet.SetTile(vec, levelTerrainData.tiles[rng.Next(0,tileCount)]);
-                            }
-                        }
-                    }
-                    
-                    //loadedChunkCoordinates.Add(new Vector3Int(chunkX, chunkY));
                     break;
                 default:
                     break;
@@ -165,12 +220,52 @@ public class TerrainManager : MonoBehaviour
         }
         */
 
+
+
+
     }
 
     /// <summary>
     /// unloads all tiles in the given chunk by setting them to null. uses SetTilesBlocks() for efficency
     /// </summary>
     private void UnloadChunk(int chunkX, int chunkY, Vector3Int chunkCoordinateObject){
+
+        int chunkCenterX = chunkX * levelTerrainData.chunkSize;
+        int chunkCenterY = chunkY * levelTerrainData.chunkSize;
+        
+
+        Vector3Int vec = Vector3Int.zero;
+        //Vector3Int[] tileCoordinates = new Vector3Int[levelTerrainData.chunkSize * levelTerrainData.chunkSize];
+        //TileBase[] tiles = new TileBase[levelTerrainData.chunkSize * levelTerrainData.chunkSize];
+        Vector3Int[] tileCoordinates = new Vector3Int[levelTerrainData.chunkSize];
+        TileBase[] tiles = new TileBase[levelTerrainData.chunkSize];
+
+        int counter = 0;
+
+        StartCoroutine(Unload());
+
+        IEnumerator Unload(){
+            for (int i = -levelTerrainData.chunkSize/2 + chunkCenterX; i < levelTerrainData.chunkSize/2 + chunkCenterX; i++){
+                tileCoordinates = new Vector3Int[levelTerrainData.chunkSize];
+                tiles = new TileBase[levelTerrainData.chunkSize];
+                counter = 0;
+                for (int j = -levelTerrainData.chunkSize/2 + chunkCenterY; j < levelTerrainData.chunkSize/2 + chunkCenterY; j++){
+                    vec.x = i;
+                    vec.y = j;
+                    
+                    if (tileSet.GetTile(vec) != null){
+                        tileCoordinates[counter] = new Vector3Int(vec.x, vec.y);
+                        counter++;
+                    }
+                }
+                tileSet.SetTiles(tileCoordinates, tiles);
+                yield return new WaitForEndOfFrame();
+            }
+        }
+
+        loadedChunkCoordinates.Remove(chunkCoordinateObject);
+
+    /*without coroutines
 
         int chunkCenterX = chunkX * levelTerrainData.chunkSize;
         int chunkCenterY = chunkY * levelTerrainData.chunkSize;
@@ -195,38 +290,9 @@ public class TerrainManager : MonoBehaviour
 
         tileSet.SetTiles(tileCoordinates, tiles);
 
-        /* not working
-        BoundsInt chunkArea = new BoundsInt(new Vector3Int(chunkCenterX, chunkCenterY, 0),  new Vector3Int(levelTerrainData.chunkSize,levelTerrainData.chunkSize, 0));
-        TileBase[] tiles = new TileBase[levelTerrainData.chunkSize * levelTerrainData.chunkSize];
-
-        for (int i = 0; i < tiles.Length; i ++){
-            tiles[i] = levelTerrainData.tiles[0];
-        }
-
-        tileSet.SetTilesBlock(chunkArea, tiles);
-        
-
-        Debug.Log("Deleting chunk (" + chunkX + "," + chunkY + ") at: " + chunkArea.min + " " + chunkArea.max + " " + chunkArea.position);
-        */
-
-        //unoptimized
-        /*
-        Vector3Int vec = Vector3Int.zero;
-
-        for (int i = -levelTerrainData.chunkSize/2 + chunkCenterX; i < levelTerrainData.chunkSize/2 + chunkCenterX; i++){
-            for (int j = -levelTerrainData.chunkSize/2 + chunkCenterY; j < levelTerrainData.chunkSize/2 + chunkCenterY; j++){
-                vec.x = i;
-                vec.y = j;
-                
-                if (tileSet.GetTile(vec) != null){
-                    tileSet.SetTile(vec, null);
-                }
-            }
-        }
-        
-        */
-
         loadedChunkCoordinates.Remove(chunkCoordinateObject);
+
+    */
     }
 
     /// <summary>
