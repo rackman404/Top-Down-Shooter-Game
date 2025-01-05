@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -10,22 +11,40 @@ using UnityEngine.Tilemaps;
 public class TerrainData : ScriptableObject
 {
 
-    [Header("Tileset Parameters")]
+
     public string tileSetName;
+
+    public bool randomSeed;
+
+    [Header("use if seed is not randomly generated")]
+    public int seedID;
 
     public int chunkSize;
 
     public TileBase[] tiles;
 
-    public int[] tileSpawnChance;
+    [Header("Tileset Parameters")]
+    public int[] tileNoiseValue;
+
+    public NoiseGenerationType[] FeatureGenerationTypes;
+
+    public FeatureType[] FeatureTypes;
+
+    public TerrainType[] TerrainTypes;
 
     private int tilesCount;
 
     void OnValidate(){
         if (tilesCount != tiles.Length){
-            tileSpawnChance = new int[tiles.Length];
+            Array.Resize<NoiseGenerationType>(ref FeatureGenerationTypes, Enum.GetNames(typeof(NoiseGenerationType)).Length);
+
+            Array.Resize<int>(ref tileNoiseValue, tiles.Length);
+            Array.Resize<FeatureType>(ref FeatureTypes, tiles.Length);
+            Array.Resize<TerrainType>(ref TerrainTypes, tiles.Length);
+
             tilesCount = tiles.Length;
         }
+
         
     }
 
