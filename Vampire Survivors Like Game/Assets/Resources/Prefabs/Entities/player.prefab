@@ -237,7 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   internalName: player
   health: 100
-  speed: 250
+  speed: 500
   waypoint: {x: 0, y: 0, z: 0}
   weaponObjs:
   - {fileID: 2870625082437626576, guid: 113a3f820cf13524294dfaa94fa697f4, type: 3}

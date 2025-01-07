@@ -42,7 +42,6 @@ public class TerrainManager : MonoBehaviour
     /// </summary>
     private List<Vector3Int> nearbyChunkCoordinates = new List<Vector3Int>();
 
-
     private List<List<int>> intArray = new List<List<int>>();
 
     //should be 3/4 of the chunk size
@@ -61,6 +60,11 @@ public class TerrainManager : MonoBehaviour
 
         //initial chunk load 
         LoadChunk(0,0, new Vector3Int (0,0), true);
+
+        Debug.Log(levelTerrainData.tileDatas.Length);
+        Debug.Log(levelTerrainData.tileDatas[rng.Next(0,5)].tile);
+        Debug.Log(levelTerrainData.tileDatas[rng.Next(0,5)].tile);
+        Debug.Log(levelTerrainData.tileDatas[rng.Next(0,5)].tile);
     }
 
 
@@ -136,16 +140,16 @@ public class TerrainManager : MonoBehaviour
             Mathf.PerlinNoise(PERLINNOISEOFFSET + featureOffset + levelTerrainData.seedID + (float)i/10,PERLINNOISEOFFSET + featureOffset + levelTerrainData.seedID + (float)j/10);
             int tileCounter = 0;
             bool tileChosen = false;
-            for (int k = 0; k < levelTerrainData.tiles.Length; k++){
-                if (feature == levelTerrainData.FeatureTypes[k]){
-                    if (value > levelTerrainData.tileNoiseValue[k] / 100.0f){ // divide by 100.0f because tileNoiseValue is a int from 0-100 but value is from 0.0 - 1.0
+            for (int k = 0; k < levelTerrainData.tileDatas.Length; k++){
+                if (feature == levelTerrainData.tileDatas[k].FeatureType){
+                    if (value > levelTerrainData.tileDatas[k].tileNoiseValue / 100.0f){ // divide by 100.0f because tileNoiseValue is a int from 0-100 but value is from 0.0 - 1.0
                         tileCounter = k;
                         tileChosen = true;
                     }
                 }
                 if (tileChosen == true){
                     tileCoordinates[counter] = new Vector3Int(vec.x, vec.y);
-                    tiles[counter] = levelTerrainData.tiles[tileCounter];
+                    tiles[counter] = levelTerrainData.tileDatas[tileCounter].tile;
                 }
 
             }
@@ -160,7 +164,7 @@ public class TerrainManager : MonoBehaviour
                         vec.y = j;
                         if (tileSet.GetTile(vec) == null){
                             tileCoordinates[counter] = new Vector3Int(vec.x, vec.y);
-                            tiles[counter] = levelTerrainData.tiles[0];
+                            tiles[counter] = levelTerrainData.tileDatas[0].tile;
                         }
                     break;
                 case NoiseGenerationType.Perlin:
@@ -170,10 +174,10 @@ public class TerrainManager : MonoBehaviour
                             tileCoordinates[counter] = new Vector3Int(vec.x, vec.y);
                             float value = Mathf.PerlinNoise(PERLINNOISEOFFSET + levelTerrainData.seedID + (float)i/10,PERLINNOISEOFFSET + levelTerrainData.seedID + (float)j/10);
                             if (value > 0.5){
-                                tiles[counter] = levelTerrainData.tiles[0];
+                                tiles[counter] = levelTerrainData.tileDatas[0].tile;
                             }
                             else{
-                                tiles[counter] = levelTerrainData.tiles[1];
+                                tiles[counter] = levelTerrainData.tileDatas[1].tile;
                             }
                         }
                     break;
@@ -181,9 +185,9 @@ public class TerrainManager : MonoBehaviour
                             vec.x = i;
                             vec.y = j;
                             if (tileSet.GetTile(vec) == null){
-                                int tileCount = levelTerrainData.tiles.Length;
+                                int tileCount = levelTerrainData.tileDatas.Length;
                                 tileCoordinates[counter] = new Vector3Int(vec.x, vec.y);
-                                tiles[counter] = levelTerrainData.tiles[rng.Next(0,tileCount)];
+                                tiles[counter] = levelTerrainData.tileDatas[rng.Next(0,tileCount)].tile;
                             }
                     break;
                 default:
@@ -286,7 +290,7 @@ public class TerrainManager : MonoBehaviour
     private void ChunkUnloadCheck(){
 
         for (int i = 0; i < loadedChunkCoordinates.Count; i++){
-            if (nearbyChunkCoordinates.Contains(loadedChunkCoordinates[i]) == false){
+            if (nearbyChunkCoordinates.Contains(loadedChunkCoordinates[i]) == false || persistantChunkCoordinates.Contains(loadedChunkCoordinates[i]) == true){
                 UnloadChunk(loadedChunkCoordinates[i].x, loadedChunkCoordinates[i].y, loadedChunkCoordinates[i]);
             }
         }

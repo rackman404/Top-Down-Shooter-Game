@@ -128,6 +128,9 @@ public class PlayerEntity : CharacterEntity
     }
 
     private void CameraPan(){
+        if (playerCam == null){
+            playerCam = Camera.main;
+        }
         if (Input.mouseScrollDelta.y == 0){
             return;
         }

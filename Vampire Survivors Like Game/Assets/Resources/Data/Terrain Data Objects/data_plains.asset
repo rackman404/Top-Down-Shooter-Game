@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f604cf38f58d64f9302ae354548995, type: 3}
+  m_Name: data_plains
+  m_EditorClassIdentifier: 
+  tileSetName: grassy
+  randomSeed: 0
+  seedID: 133
+  chunkSize: 100
+  tiles:
+  - {fileID: 11400000, guid: cc02983db1d7799468526d808606dec0, type: 2}
+  - {fileID: 11400000, guid: 315485e9608817a47a0ac43a93aac3dc, type: 2}
+  - {fileID: 11400000, guid: b8d4e2f202a6b3c4ba86e245a65b1103, type: 2}
+  - {fileID: 11400000, guid: 96181296a074b68489e14604ce50ced8, type: 2}
+  - {fileID: 11400000, guid: 8447c83a6dcc88646ba72cfe0665051d, type: 2}
+  tileDatas:
+  - tile: {fileID: 11400000, guid: cc02983db1d7799468526d808606dec0, type: 2}
+    FeatureType: 2
+    TerrainTypes: 0
+    tileNoiseValue: 0
+  - tile: {fileID: 11400000, guid: 315485e9608817a47a0ac43a93aac3dc, type: 2}
+    FeatureType: 2
+    TerrainTypes: 0
+    tileNoiseValue: 0
+  - tile: {fileID: 11400000, guid: 8447c83a6dcc88646ba72cfe0665051d, type: 2}
+    FeatureType: 0
+    TerrainTypes: 0
+    tileNoiseValue: 30
+  - tile: {fileID: 11400000, guid: b8d4e2f202a6b3c4ba86e245a65b1103, type: 2}
+    FeatureType: 0
+    TerrainTypes: 0
+    tileNoiseValue: 49
+  - tile: {fileID: 11400000, guid: 96181296a074b68489e14604ce50ced8, type: 2}
+    FeatureType: 0
+    TerrainTypes: 0
+    tileNoiseValue: 50
+  tileNoiseValue: 0000000000000000230000003200000000000000
+  FeatureGenerationTypes: 000000000000000000000000
+  FeatureTypes: 0200000002000000000000000000000000000000
+  TerrainTypes: 0000000000000000010000000100000000000000

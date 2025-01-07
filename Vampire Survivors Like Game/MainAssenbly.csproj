@@ -85,10 +85,12 @@
     <Compile Include="Assets\Scripts\Entities\Character Entities\Mob Entity\MobEntity.cs" />
     <Compile Include="Assets\Scripts\Common\Level System\LevelData.cs" />
     <Compile Include="Assets\Scripts\Common\GUI System\Level GUI\MiniMapController.cs" />
+    <Compile Include="Assets\Scripts\Terrain\TerrainTile.cs" />
     <Compile Include="Assets\Scripts\Terrain\TerrainData.cs" />
     <Compile Include="Assets\Scripts\Entities\Item\ItemEntity.cs" />
     <Compile Include="Assets\Scripts\AI_COMPONENT\MLNetworkInterface.cs" />
     <Compile Include="Assets\Scripts\Common\Save Load System\ISaveLoadHandler.cs" />
+    <Compile Include="Assets\Scripts\Editor\Terrain\TileDataEditor.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\Player Entity\PlayerEntity.cs" />
     <Compile Include="Assets\Scripts\Terrain\Terrain.cs" />
     <Compile Include="Assets\Scripts\Entities\EntityAI\EntityAiController.cs" />
@@ -104,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\MainAssenbly.asmdef" />
+    <None Include="Assets\Scripts\Editor\Terrain\TerrainDataUXML.uxml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

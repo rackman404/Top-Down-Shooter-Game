@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:Label tabindex="-1" text="Terrain Tileset Editor" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" style="align-items: center; align-self: center;" />
+    <ui:TextField picking-mode="Ignore" label="Tileset Name" binding-path="tileSetName" />
+    <ui:Foldout text="Generation Parameters" name="GenerationLayout">
+        <ui:Toggle label="Enable Random Seed" name="RandomSeedEnable" binding-path="randomSeed" style="justify-content: flex-end; align-self: auto;" />
+        <ui:IntegerField label="Preset Seed" value="0" binding-path="seedID" name="SeedField" />
+        <ui:IntegerField label="Chunk Size" value="0" name="ChunkSizeField" binding-path="chunkSize" />
+    </ui:Foldout>
+    <ui:Foldout text="Tile Parameters" name="TileParameters" value="true">
+        <uie:PropertyField binding-path="tiles" label="t" />
+        <uie:PropertyField binding-path="tileDatas" label="t" />
+    </ui:Foldout>
+</ui:UXML>
