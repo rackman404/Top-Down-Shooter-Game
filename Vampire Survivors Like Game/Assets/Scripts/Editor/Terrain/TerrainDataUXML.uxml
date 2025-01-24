@@ -5,9 +5,10 @@
         <ui:Toggle label="Enable Random Seed" name="RandomSeedEnable" binding-path="randomSeed" style="justify-content: flex-end; align-self: auto;" />
         <ui:IntegerField label="Preset Seed" value="0" binding-path="seedID" name="SeedField" />
         <ui:IntegerField label="Chunk Size" value="0" name="ChunkSizeField" binding-path="chunkSize" />
+        <uie:PropertyField label="Feature Generation Order&#10;(index 0 first)" binding-path="featureGenerationOrder" />
     </ui:Foldout>
     <ui:Foldout text="Tile Parameters" name="TileParameters" value="true">
-        <uie:PropertyField binding-path="tiles" label="t" />
-        <uie:PropertyField binding-path="tileDatas" label="t" />
+        <uie:PropertyField binding-path="tiles" label="Debug" />
+        <uie:PropertyField binding-path="tileDatas" label="Tile Data Settings" />
     </ui:Foldout>
 </ui:UXML>

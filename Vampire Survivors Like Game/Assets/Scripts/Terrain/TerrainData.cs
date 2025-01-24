@@ -11,7 +11,6 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(fileName = "Terrain Data", menuName = "ScriptableObjects/TerrainData", order = 1)]
 public class TerrainData : ScriptableObject
 {
-
     //editor set
     public string tileSetName;
 
@@ -26,8 +25,9 @@ public class TerrainData : ScriptableObject
 
     public TileBase[] tiles;
 
-    public TerrainTile[] tileDatas;
+    public FeatureType[] featureGenerationOrder;
 
+    public TerrainTile[] tileDatas;
 
     [Header("Tileset Parameters")]
     //public int[] tileNoiseValue;
@@ -51,14 +51,6 @@ public class TerrainData : ScriptableObject
             //Array.Resize<TerrainType>(ref TerrainTypes, tiles.Length);
 
             tilesCount = tiles.Length;
-
-
-
-
-            tileDatas = new TerrainTile[tiles.Length];
-            for (int i = 0; i < tiles.Length; i++){ //copy data over with new polymorphed class
-               // ScriptableObject.CreateInstance<TerrainTile>();
-            }
         }
 
         

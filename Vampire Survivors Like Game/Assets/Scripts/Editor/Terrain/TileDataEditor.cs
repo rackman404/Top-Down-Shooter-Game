@@ -5,6 +5,8 @@ using UnityEditor;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
+
+#if (UNITY_EDITOR) 
 [CustomEditor(typeof(TerrainData))]
 public class TerrainDataEditor : Editor
 {
@@ -23,9 +25,14 @@ public class TerrainDataEditor : Editor
         // Instantiate the UXML.
         myInspector = m_InspectorXML.Instantiate();
 
-
         // Return the finished Inspector UI.
         return myInspector;
+
+
+    }
+
+    void OnValidate(){
+        SaveScriptable();
     }
 
     void SaveScriptable(){
@@ -34,3 +41,4 @@ public class TerrainDataEditor : Editor
         AssetDatabase.Refresh();
     }
 }
+#endif

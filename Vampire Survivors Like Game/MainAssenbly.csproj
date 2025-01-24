@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Weapon\WeaponController.cs" />
     <Compile Include="Assets\Scripts\Terrain\TerrainManager.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\CharacterMovementController.cs" />
+    <Compile Include="Assets\Scripts\Terrain\FeatureType.cs" />
     <Compile Include="Assets\Scripts\Entities\EntityAI\States\IAIState.cs" />
     <Compile Include="Assets\Scripts\Entities\EntityAnimationController.cs" />
     <Compile Include="Assets\Scripts\Common\GameController.cs" />
@@ -92,7 +93,6 @@
     <Compile Include="Assets\Scripts\Common\Save Load System\ISaveLoadHandler.cs" />
     <Compile Include="Assets\Scripts\Editor\Terrain\TileDataEditor.cs" />
     <Compile Include="Assets\Scripts\Entities\Character Entities\Player Entity\PlayerEntity.cs" />
-    <Compile Include="Assets\Scripts\Terrain\Terrain.cs" />
     <Compile Include="Assets\Scripts\Entities\EntityAI\EntityAiController.cs" />
     <Compile Include="Assets\Scripts\Common\GUI System\Menu GUI\GUIMenuController.cs" />
     <Compile Include="Assets\Scripts\Entities\Projectile\LinearProjectileEntity.cs" />

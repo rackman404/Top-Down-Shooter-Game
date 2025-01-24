@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90af3980260150f4ba40654f4707d263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noiseGenSetting: 2
+  chunkLoadType: 1
   tileSet: {fileID: 1367164205}
   grid: {fileID: 300805759}
   levelTerrainData: {fileID: 11400000, guid: 1a8ee39bcaa35bc4a8def54cc3dd783a, type: 2}
